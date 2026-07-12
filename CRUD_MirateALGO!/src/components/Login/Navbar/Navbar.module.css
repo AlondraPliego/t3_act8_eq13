@@ -1,0 +1,184 @@
+/* Barra de navegación principal */
+.navbarContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1e1d1e; /* Color oscuro del fondo de la barra */
+  padding: 12px 24px;
+  height: 64px;
+  color: #ffffff;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  z-index: 100;
+}
+
+/* Bloque Izquierdo: Marca y Logotipo */
+.brandSection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.tvIcon {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.brandName {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-family: 'Georgia', serif;
+  color: #ffffff;
+}
+
+/* Bloque Derecho: Herramientas de navegación */
+.toolsSection {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+
+/* Iconos de las herramientas */
+.toolIcon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+/* Botón de Notificaciones (Campana) */
+.notificationBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.notificationBtn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Área del botón de Usuario con iluminación azul */
+.userMenuTrigger {
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Iluminación azul solicitada al pasar el mouse encima de usuario */
+.userMenuTrigger:hover {
+  color: #048BA8;
+}
+
+.userMenuTrigger:hover .toolIcon {
+  /* Filtro opcional por si usas un PNG blanco para que cambie al azul #048BA8 en hover */
+  filter: drop-shadow(0px 0px 1px #048BA8); 
+}
+
+/* Caja de menú desplegable del perfil en la esquina superior derecha */
+.profileDropdown {
+  position: absolute;
+  top: 50px; /* Ajustado perfectamente debajo del navbar */
+  right: 0;
+  background-color: #4A4849; /* Gris más suave solicitado */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  width: 260px;
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* Contenedor e imagen de perfil centrada */
+.avatarContainer {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid #048BA8; /* Borde con el tono azul */
+  overflow: hidden;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2F2D2E;
+}
+
+.profileImageAvatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Texto de información */
+.userNameDisplay {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  text-align: center;
+}
+
+.userEmailDisplay {
+  color: #b3b1b2;
+  font-size: 0.85rem;
+  margin: 0 0 20px 0;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Botón de cierre de sesión con hover en verde */
+.logoutActionBtn {
+  width: 100%;
+  padding: 10px;
+  background-color: #048BA8;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.logoutActionBtn:hover {
+  background-color: #99C24D; /* Verde para el estado hover */
+}
+
+/* Adaptabilidad de pantalla */
+@media (max-width: 480px) {
+  .userText {
+    display: none; 
+  }
+  
+  .profileDropdown {
+    position: fixed;
+    top: 64px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+  }
+}
