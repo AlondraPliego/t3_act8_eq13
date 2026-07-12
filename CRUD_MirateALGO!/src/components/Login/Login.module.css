@@ -1,0 +1,198 @@
+/* Contenedor principal de la página (Fondo oscuro) */
+.pageContainer {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2F2D2E;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Tarjeta contenedora con el gris más suave */
+.loginCard {
+  background-color: #4A4849;
+  width: 100%;
+  max-width: 900px;
+  border-radius: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Sección izquierda: Formulario */
+.formSection {
+  padding: 50px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title {
+  color: #FFFFFF;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  font-family: 'Georgia', serif; /* Para asemejar el estilo tipográfico del mockup */
+  font-weight: 400;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Inputs con el borde sutil */
+.input {
+  width: 100%;
+  padding: 14px 16px;
+  background-color: transparent;
+  border: 1px solid #5a5859;
+  border-radius: 8px;
+  color: #FFFFFF;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: #048BA8;
+}
+
+.input::placeholder {
+  color: #a09e9f;
+}
+
+/* Checkbox personalizado */
+.checkboxGroup {
+  display: flex;
+  align-items: center;
+  margin-top: -5px;
+}
+
+.checkboxLabel {
+  color: #a09e9f;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+
+.checkbox {
+  cursor: pointer;
+  accent-color: #048BA8; /* Estilo nativo rápido */
+}
+
+/* Botón con su estado Hover */
+.submitBtn {
+  background-color: #048BA8;
+  color: #FFFFFF;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  margin-top: 10px;
+}
+
+.submitBtn:hover {
+  background-color: #99C24D;
+}
+
+.submitBtn:active {
+  transform: scale(0.98);
+}
+
+/* Divisor "O continuar con" */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #a09e9f;
+  font-size: 0.85rem;
+  margin: 25px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #5a5859;
+}
+
+.divider:not(:empty)::before {
+  margin-right: .5em;
+}
+
+.divider:not(:empty)::after {
+  margin-left: .5em;
+}
+
+/* Redes Sociales */
+.socialGroup {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.socialBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  transition: transform 0.2s ease;
+}
+
+.socialBtn:hover {
+  transform: scale(1.1);
+}
+
+.socialIcon {
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+/* Sección derecha: Imagen */
+.imageSection {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 30px; /* Margen interno para que no pegue al borde como el mockup */
+  box-sizing: border-box;
+}
+
+.coverImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+/* ==========================================================================
+   Media Query para Responsividad (Móviles y Tablets verticales)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .loginCard {
+    grid-template-columns: 1fr; /* Pasa a una sola columna */
+    max-width: 450px;
+    border-radius: 16px;
+  }
+
+  .formSection {
+    padding: 35px 25px;
+  }
+
+  /* Ocultamos la imagen en móvil para priorizar el login, 
+     o si prefieres mostrarla arriba/abajo, puedes quitar este display:none */
+  .imageSection {
+    display: none; 
+  }
+}
