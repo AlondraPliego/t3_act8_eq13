@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Login.module.css';
 
-export default function Login() {
+export default function Login({ onLoginSuccess }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
@@ -10,6 +10,9 @@ export default function Login() {
     e.preventDefault();
     // Aquí manejarías la lógica de inicio de sesión
     console.log({ email, password, rememberMe });
+   if (onLoginSuccess) {
+      onLoginSuccess();
+    }
   };
 
   return (
