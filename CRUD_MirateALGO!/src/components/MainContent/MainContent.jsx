@@ -86,14 +86,14 @@ export default function MainContent() {
         
         {/* Buscador */}
         <div className={styles.searchBox}>
-          <img src="/icons/searchIcon.png" alt="Buscar" className={styles.searchIcon} />
+          <img src="/icons/searchIcon.svg" alt="Buscar" className={styles.searchIcon} />
           <input type="text" placeholder="Buscar por nombre de serie ..." className={styles.searchInput} />
         </div>
 
         {/* Filtros Desplegables */}
         <div className={styles.filtersGroup}>
           <button className={styles.filterBtnIcon}>
-            <img src="/icons/filterIcon.png" alt="Icono Filtro" className={styles.smallIcon} />
+            <img src="/icons/filterIcon.svg" alt="Icono Filtro" className={styles.smallIcon} />
           </button>
 
           {/* Menú Género */}
@@ -144,9 +144,7 @@ export default function MainContent() {
 
         {/* Botones de Acción Globales */}
         <div className={styles.globalActions}>
-          <button className={styles.actionBtnTop}><img src="/icons/trashTopIcon.png" alt="Eliminar seleccionados" /></button>
-          <button className={styles.actionBtnTop}><img src="/icons/addTopIcon.png" alt="Añadir nuevo" /></button>
-          <button className={styles.actionBtnTop}><img src="/icons/editTopIcon.png" alt="Edición rápida" /></button>
+          <button className={styles.actionBtnTop}><img src="/icons/addIcon.png" alt="Añadir nuevo" /></button>
         </div>
       </div>
 
@@ -177,11 +175,12 @@ export default function MainContent() {
                 <td>{serie.temporadas}</td>
                 <td>{serie.canal}</td>
                 <td>{serie.episodios}</td>
-                <td className={styles.rowActions}>
-                  <img src="/icons/heartIcon.png" alt="Favorito" className={styles.actionIcon} />
-                  {/* Botones de edición/eliminación PARTICULARES por fila */}
-                  <img src="/icons/editRowIcon.png" alt="Editar elemento" className={styles.actionIcon} />
-                  <img src="/icons/trashRowIcon.png" alt="Eliminar elemento" className={styles.actionIcon} />
+                <td>
+                <div className={styles.rowActionsContainer}>
+                    <img src="/icons/heart.svg" alt="Favorito" className={styles.actionIcon} />
+                    <img src="/icons/editar.png" alt="Editar elemento" className={styles.actionIcon} />
+                    <img src="/icons/eliminar.png" alt="Eliminar elemento" className={styles.actionIcon} />
+                </div>
                 </td>
               </tr>
             ))}
@@ -206,7 +205,7 @@ export default function MainContent() {
         {/* Controles de números de página */}
         <div className={styles.paginationControls}>
           <button className={styles.arrowBtn} onClick={() => setCurrentPage(p => Math.max(1, p - 1))}>
-            <img src="/icons/leftArrow.png" alt="Anterior" />
+            <img src="/icons/izquierda.svg" alt="Anterior" />
           </button>
           
           {/* Ejemplo de páginas (Puedes hacer un map dinámico aquí) */}
@@ -221,7 +220,7 @@ export default function MainContent() {
           ))}
 
           <button className={styles.arrowBtn} onClick={() => setCurrentPage(p => p + 1)}>
-            <img src="/icons/rightArrow.png" alt="Siguiente" />
+            <img src="/icons/derecha.svg" alt="Siguiente" />
           </button>
         </div>
 

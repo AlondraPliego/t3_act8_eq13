@@ -3,12 +3,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1e1d1e; /* Color oscuro del fondo de la barra */
+  background-color: #2F2D2E; /* Color oscuro del fondo de la barra */
   padding: 12px 24px;
   height: 64px;
   color: #ffffff;
   position: relative;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   z-index: 100;
