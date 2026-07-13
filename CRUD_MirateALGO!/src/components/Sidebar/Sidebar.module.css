@@ -1,0 +1,126 @@
+/* Contenedor principal del Sidebar */
+.sidebar {
+  background-color: #242324; /* Color oscuro del fondo del sidebar */
+  height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.collapsed {
+  width: 76px;
+}
+
+.expanded {
+  width: 240px;
+}
+
+/* Área del botón de hamburguesa */
+.hamburgerSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  width: 100%;
+}
+
+.expanded .hamburgerSection {
+  justify-content: flex-start;
+  padding-left: 20px;
+}
+
+.hamburgerBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.hamburgerBtn:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.hamburgerIcon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+/* Menú de navegación */
+.navMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px; /* Margen lateral para que el bloque de hover no pegue a las paredes */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Botón del ítem de menú */
+.navItem {
+  background: none;
+  border: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: 4px; /* Esquinas ligeramente redondeadas para la caja azul */
+  color: #FFFFFF;
+  cursor: pointer;
+  padding: 12px 0;
+  transition: background-color 0.15s ease;
+  box-sizing: border-box;
+}
+
+/* Contenedor interno para alinear icono y texto uniformemente */
+.itemContent {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.collapsed .itemContent {
+  justify-content: center;
+}
+
+.expanded .itemContent {
+  justify-content: flex-start;
+  padding-left: 12px;
+  gap: 16px;
+}
+
+/* ====== EFECTO HOVER SOLICITADO (Caja azul sólida) ====== */
+.navItem:hover {
+  background-color: #048BA8; /* Fondo azul completo */
+  color: #FFFFFF; /* Texto e icono se mantienen blancos */
+}
+
+.menuIcon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Comportamiento del texto */
+.menuText {
+  font-family: 'Georgia', serif;
+  font-size: 1rem;
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+
+/* Ocultar texto suavemente cuando esté colapsado */
+.collapsed .menuText {
+  opacity: 0;
+  display: none;
+}
+
+.expanded .menuText {
+  opacity: 1;
+}

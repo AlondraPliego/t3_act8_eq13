@@ -4,8 +4,6 @@ import styles from './Navbar.module.css';
 export default function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-
-  // Cerrar el menú desplegable si se hace clic fuera de él
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -22,8 +20,6 @@ export default function Navbar() {
 
   return (
     <nav className={styles.navbarContainer}>
-      
-      {/* LADO IZQUIERDO: Marca y Logotipo de TV */}
       <div className={styles.brandSection}>
         <img 
           src="/icons/tvIcon.png" 

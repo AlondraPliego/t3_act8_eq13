@@ -1,12 +1,13 @@
-/* Contenedor general de la aplicación */
+/* Contenedor general */
 .main-layout {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   background-color: #2F2D2E; /* Fondo base oscuro */
+  width: 100%;  /* Ocupa el ancho total del viewport */
+  height: 100vh;
 }
 
-/* Espacio inferior que dividirá el Sidebar y el Contenido Principal */
 .content-container {
   display: flex;
   flex: 1;
@@ -14,9 +15,34 @@
   box-sizing: border-box;
 }
 .main-play-content {
+  width: 100%;
   flex: 1;
   background-color: #2F2D2E; /* Mismo fondo de la app */
   padding: 30px;
   box-sizing: border-box;
   transition: all 0.3s ease; /* Transición suave de autoajuste */
+}
+/* Estructura vertical: Navbar arriba, resto abajo */
+.app-layout {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #2F2D2E; /* Fondo oscuro base */
+}
+
+/* Contenedor que agrupa Sidebar y Contenido de reojo */
+.main-wrapper {
+  display: flex;
+  flex: 1; /* Ocupa todo el alto restante debajo del Navbar */
+  width: 100%;
+  overflow: hidden;
+}
+
+/* El área central donde va la tabla se expande automáticamente */
+.content-area {
+  flex: 1;
+  overflow-y: auto; /* Permite scroll vertical interno si hay muchas filas */
+  background-color: #2F2D2E;
 }

@@ -1,0 +1,258 @@
+/* Contenedor global de la sección central */
+.mainContainer {
+    width: 100%; /* <-- Asegúrate de que tenga esto */
+  min-height: 100%;
+  padding: 30px;
+  background-color: #2F2D2E;
+  color: #FFFFFF;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================
+   1. CONTROLES SUPERIORES (Búsqueda y Filtros)
+   ========================================== */
+.topControls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Búsqueda */
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: transparent;
+}
+.searchIcon {
+  width: 24px;
+  height: 24px;
+}
+.searchInput {
+  background: none;
+  border: none;
+  border-bottom: 1px solid #4A4849;
+  color: #FFFFFF;
+  padding: 8px 0;
+  outline: none;
+  font-size: 1rem;
+}
+.searchInput::placeholder {
+  color: #8c8c8c;
+}
+
+/* Grupo de Filtros */
+.filtersGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.filterBtnIcon {
+  background-color: #048BA8;
+  border: none;
+  border-radius: 4px;
+  padding: 6px;
+  cursor: pointer;
+  display: flex;
+}
+.smallIcon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Menús Desplegables */
+.dropdownContainer {
+  position: relative;
+}
+.filterBtn {
+  background-color: #4A4849;
+  color: #FFFFFF;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.filterBtn:hover {
+  background-color: #5a5859;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background-color: #4A4849;
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+  border-radius: 8px;
+  width: 160px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 50;
+  text-align: center;
+}
+.dropdownMenu li {
+  padding: 10px;
+  cursor: pointer;
+  font-family: 'Georgia', serif; /* Tipografía vista en la imagen de despliegues */
+  font-size: 0.95rem;
+}
+.dropdownMenu li:hover {
+  background-color: #048BA8;
+}
+
+/* Botones de Acción Superiores */
+.globalActions {
+  display: flex;
+  gap: 12px;
+}
+.actionBtnTop {
+  background-color: #FFFFFF;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.actionBtnTop img {
+  width: 18px;
+  height: 18px;
+}
+.actionBtnTop:hover {
+  transform: scale(1.1);
+}
+
+/* ==========================================
+   2. TABLA
+   ========================================== */
+.tableWrapper {
+  flex: 1;
+  overflow-x: auto; /* Scroll si la pantalla es muy pequeña */
+}
+.customTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center; /* Alineado al centro como en el mockup */
+}
+.customTable th {
+  color: #b3b3b3;
+  font-weight: normal;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #99C24D; /* La línea verde del mockup */
+  font-family: 'Georgia', serif;
+}
+.customTable td {
+  padding: 16px 10px;
+  border-bottom: 1px solid #4A4849; /* Línea separadora sutil */
+  color: #e0e0e0;
+}
+
+/* EFECTO HOVER DE LAS FILAS SOLICITADO */
+.customTable tbody tr {
+  transition: background-color 0.2s ease;
+}
+.customTable tbody tr:hover {
+  background-color: rgba(4, 139, 168, 0.15); /* Se ilumina sutilmente de azul */
+}
+
+/* Acciones particulares por fila */
+.rowActions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+.actionIcon {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.actionIcon:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* ==========================================
+   3. PAGINACIÓN INFERIOR
+   ========================================== */
+.paginationFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  font-size: 0.9rem;
+  font-family: 'Georgia', serif;
+}
+.paginationInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #b3b3b3;
+}
+.rowsSelect {
+  background-color: #4A4849;
+  color: #FFFFFF;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Botones numéricos de página */
+.paginationControls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.arrowBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+}
+.arrowBtn img {
+  width: 24px;
+  height: 24px;
+  filter: invert(1); /* Pone las flechas en blanco si tus PNGs son negros */
+}
+.pageNumberBtn {
+  background: none;
+  border: none;
+  color: #FFFFFF;
+  font-family: 'Georgia', serif;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+.pageNumberBtn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Estado activo de la página (El verde del mockup image_1c6a9a.png) */
+.activePage {
+  background-color: #99C24D;
+  color: #FFFFFF;
+}
+.activePage:hover {
+  background-color: #99C24D; /* Mantiene el verde */
+}

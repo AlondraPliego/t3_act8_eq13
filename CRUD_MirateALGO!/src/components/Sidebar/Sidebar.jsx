@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import styles from './Sidebar.module.css';
 
 export default function Sidebar() {
-  // Por defecto arranca unicamente con los iconos (colapsado)
+  // Estado para controlar si el menú está expandido o colapsado
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
   };
 
-  // Arreglo de opciones con nombres de iconos descriptivos
+  // Menú con sus nombres correspondientes y rutas de iconos descriptivos
   const menuItems = [
     { id: 'inicio', text: 'Inicio', icon: '/icons/iconoHome.png' },
     { id: 'tendencias', text: 'Tendencias', icon: '/icons/iconoTrends.png' },
@@ -24,7 +24,7 @@ export default function Sidebar() {
       
       {/* Botón de Hamburguesa */}
       <div className={styles.hamburgerSection}>
-        <button className={styles.hamburgerBtn} onClick={toggleSidebar} aria-label="Menu">
+        <button className={styles.hamburgerBtn} onClick={toggleSidebar} aria-label="Abrir menú">
           <img 
             src="/icons/iconoMenu.png" 
             alt="Icono descriptivo menu hamburguesa" 
@@ -36,16 +36,16 @@ export default function Sidebar() {
       {/* Lista de Navegación */}
       <nav className={styles.navMenu}>
         {menuItems.map((item) => (
-          <button key={item.id} className={styles.navItem} title={item.text}>
-            <div className={styles.iconWrapper}>
+          <button key={item.id} className={styles.navItem} Skinner-text={item.text}>
+            <div className={styles.itemContent}>
               <img 
                 src={item.icon} 
                 alt={`Icono descriptivo para ${item.text}`} 
                 className={styles.menuIcon} 
               />
+              {/* El texto siempre está en el HTML, pero el CSS controla su aparición */}
+              <span className={styles.menuText}>{item.text}</span>
             </div>
-            {/* El texto solo se renderiza/muestra visualmente si está expandido */}
-            <span className={styles.menuText}>{item.text}</span>
           </button>
         ))}
       </nav>

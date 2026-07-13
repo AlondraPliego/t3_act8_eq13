@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import Login from './components/Login/Login';
-import Navbar from './components/Login/Navbar/Navbar';
-import Sidebar from './components/Login/Sidebar/Sidebar';
+import Navbar from './components/Navbar/Navbar';
+import Sidebar from './components/Sidebar/Sidebar';
+import MainContent from './components/MainContent/MainContent'; // <-- 1. Importamos la zona central
 import './App.css';
 
 function App() {
-  // Estado para controlar si el usuario ya inició sesión
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Función para simular el inicio de sesión exitoso
   const handleLoginSuccess = () => {
     setIsAuthenticated(true);
   };
@@ -16,19 +15,21 @@ function App() {
   return (
     <>
       {!isAuthenticated ? (
-        // Si no está autenticado, muestra el Login pasándole la función de éxito
         <Login onLoginSuccess={handleLoginSuccess} />
       ) : (
-        // Si está autenticado, muestra la estructura de la Pantalla Principal
-        <div className="main-layout">
+        /* Contenedor general de la aplicación una vez logueado */
+        <div className="app-layout">
           <Navbar />
-          <div className="content-container">
-  <Sidebar />
-
-  <main className="main-play-content">
-    <h1 style={{ color: '#fff' }}>Zona Central Play</h1>
-  </main>
-</div>
+          
+          {/* Contenedor inferior que divide la pantalla horizontalmente */}
+          <div className="main-wrapper">
+            <Sidebar />
+            
+            {/* 2. Reemplazamos el texto plano por el componente de la tabla */}
+            <main className="content-area">
+              <MainContent />
+            </main>
+          </div>
         </div>
       )}
     </>
