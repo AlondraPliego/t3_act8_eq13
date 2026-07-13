@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Login from './components/Login/Login';
-//import Navbar from './components/Navbar/Navbar';
+import Navbar from './components/Login/Navbar/Navbar';
+import Sidebar from './components/Login/Sidebar/Sidebar';
 import './App.css';
 
 function App() {
@@ -22,10 +23,12 @@ function App() {
         <div className="main-layout">
           <Navbar />
           <div className="content-container">
-            {/* Aquí colocaremos el Sidebar e izquierdo y la Zona Central "Play" */}
-            <aside style={{ color: '#fff', padding: '20px' }}>[Aquí irá tu Sidebar]</aside>
-            <main style={{ color: '#fff', padding: '20px', flex: 1 }}>[Aquí irá la Zona Central Play]</main>
-          </div>
+  <Sidebar />
+
+  <main className="main-play-content">
+    <h1 style={{ color: '#fff' }}>Zona Central Play</h1>
+  </main>
+</div>
         </div>
       )}
     </>

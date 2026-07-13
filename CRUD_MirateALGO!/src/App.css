@@ -13,3 +13,10 @@
   width: 100%;
   box-sizing: border-box;
 }
+.main-play-content {
+  flex: 1;
+  background-color: #2F2D2E; /* Mismo fondo de la app */
+  padding: 30px;
+  box-sizing: border-box;
+  transition: all 0.3s ease; /* Transición suave de autoajuste */
+}
