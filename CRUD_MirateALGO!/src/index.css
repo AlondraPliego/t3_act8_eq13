@@ -1,13 +1,11 @@
-/* src/index.css */
 
-/* Eliminamos márgenes del navegador y permitimos que use el 100% real */
 html, body, #root {
   margin: 0;
   padding: 0;
-  width: 100vw;   /* Ocupa el 100% del ancho de la pantalla */
-  height: 100vh;  /* Ocupa el 100% del alto de la pantalla */
-  background-color: #2F2D2E; /* Tu color oscuro de fondo */
-  overflow: hidden; /* Evita que salgan barras de scroll dobles */
+  width: 100vw;   
+  height: 100vh; 
+  background-color: #2F2D2E; 
+  overflow: hidden; 
 }
 
 * {

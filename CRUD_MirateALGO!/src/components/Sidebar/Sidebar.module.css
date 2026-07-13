@@ -1,6 +1,6 @@
 /* Contenedor principal del Sidebar */
 .sidebar {
-  background-color: #242324; /* Color oscuro del fondo del sidebar */
+  background-color: #2F2D2E; /* Color oscuro del fondo del sidebar */
   height: calc(100vh - 64px);
   display: flex;
   flex-direction: column;
