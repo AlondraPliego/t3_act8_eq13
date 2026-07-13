@@ -88,7 +88,6 @@
 .checkbox {
   cursor: pointer;
   accent-color: #048BA8; /* Estilo nativo rápido */
-  background-color: #2F2D2E;
 }
 
 /* Botón con su estado Hover */
@@ -138,7 +137,6 @@
   margin-left: .5em;
 }
 
-/* Redes Sociales */
 .socialGroup {
   display: flex;
   justify-content: center;
@@ -163,7 +161,6 @@
   display: block;
 }
 
-/* Sección derecha: Imagen */
 .imageSection {
   position: relative;
   width: 100%; 
@@ -181,6 +178,17 @@
   object-fit: cover; 
   border-radius: 16px;
 }
+
+.errorMessage {
+  color: #ff4d4d;
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 8px;
+  border-radius: 6px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 
 /* ==========================================================================
    Media Query para Responsividad (Móviles y Tablets verticales)
