@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'; // <-- Importamos useEffect
-import Swal from 'sweetalert2'; 
+import React, { useState, useEffect } from 'react';
 import styles from './forms.module.css';
 
 export default function FormEdit({ isOpen, onClose, elementoSeleccionado, onEditElement }) {
@@ -13,6 +12,9 @@ export default function FormEdit({ isOpen, onClose, elementoSeleccionado, onEdit
     canal: '',
     episodios: ''
   });
+  
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     if (isOpen && elementoSeleccionado) {
       setFormData({
@@ -25,20 +27,30 @@ export default function FormEdit({ isOpen, onClose, elementoSeleccionado, onEdit
         canal: elementoSeleccionado.canal || '',
         episodios: elementoSeleccionado.episodios || ''
       });
+      setError(null);
     }
   }, [isOpen, elementoSeleccionado]);
 
   if (!isOpen) return null;
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    // Se utiliza 'id' para mantener consistencia con FormAdd y evitar autocompletado
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setError(null);
 
-    // SweetAlert2 corregido para edición
+    // Validacion de campos vacios
+    const hasEmptyFields = Object.values(formData).some(val => String(val).trim() === '');
+    
+    if (hasEmptyFields) {
+      setError('Es necesario rellenar todos los campos.');
+      return;
+    }
+
     Swal.fire({
       title: '¿Guardar cambios?',
       text: `Vas a actualizar los datos de "${formData.titulo}".`,
@@ -46,13 +58,12 @@ export default function FormEdit({ isOpen, onClose, elementoSeleccionado, onEdit
       showCancelButton: true,
       confirmButtonColor: '#048BA8', 
       cancelButtonColor: '#4A4849',  
-      confirmButtonText: 'Sí, guardar', // <-- Corregido
+      confirmButtonText: 'Sí, guardar',
       cancelButtonText: 'Cancelar',
       background: '#2F2D2E',         
       color: '#FFFFFF'
     }).then((result) => {
       if (result.isConfirmed) {
-        // Le pasamos los datos actualizados y el ID original para saber cuál editar
         if (onEditElement) {
           onEditElement({ ...elementoSeleccionado, ...formData });
         }
@@ -80,26 +91,26 @@ export default function FormEdit({ isOpen, onClose, elementoSeleccionado, onEdit
           <button className={styles.closeBtn} onClick={onClose}>X</button>
         </div>
 
-        <form onSubmit={handleSubmit} className={styles.formBody}>
+        <form onSubmit={handleSubmit} className={styles.formBody} noValidate autoComplete="off">
           
           <div className={styles.formGroup}>
             <label>Titulo</label>
-            <input type="text" name="titulo" value={formData.titulo} onChange={handleChange} required />
+            <input type="text" id="titulo" value={formData.titulo} onChange={handleChange} autoComplete="off" />
           </div>
 
           <div className={styles.formGroup}>
             <label>Año</label>
-            <input type="number" name="año" value={formData.año} onChange={handleChange} required />
+            <input type="number" id="año" value={formData.año} onChange={handleChange} autoComplete="off" />
           </div>
 
           <div className={styles.formGroup}>
             <label>Calificación</label>
-            <input type="number" step="0.1" name="calificacion" value={formData.calificacion} onChange={handleChange} required />
+            <input type="number" step="0.1" id="calificacion" value={formData.calificacion} onChange={handleChange} autoComplete="off" />
           </div>
 
           <div className={styles.formGroup}>
             <label>Estado</label>
-            <select name="estado" value={formData.estado} onChange={handleChange}>
+            <select id="estado" value={formData.estado} onChange={handleChange}>
               <option value="Emision">Emision</option>
               <option value="Finalizada">Finalizada</option>
               <option value="Cancelado">Cancelado</option>
@@ -108,7 +119,7 @@ export default function FormEdit({ isOpen, onClose, elementoSeleccionado, onEdit
 
           <div className={styles.formGroup}>
             <label>Genero</label>
-            <select name="genero" value={formData.genero} onChange={handleChange}>
+            <select id="genero" value={formData.genero} onChange={handleChange}>
               <option value="Comedia">Comedia</option>
               <option value="Terror">Terror</option>
               <option value="Drama">Drama</option>
@@ -118,21 +129,27 @@ export default function FormEdit({ isOpen, onClose, elementoSeleccionado, onEdit
 
           <div className={styles.formGroup}>
             <label>Temporadas</label>
-            <input type="number" name="temporadas" value={formData.temporadas} onChange={handleChange} required />
+            <input type="number" id="temporadas" value={formData.temporadas} onChange={handleChange} autoComplete="off" />
           </div>
 
           <div className={styles.formGroup}>
             <label>Canal</label>
-            <input type="text" name="canal" value={formData.canal} onChange={handleChange} required />
+            <input type="text" id="canal" value={formData.canal} onChange={handleChange} autoComplete="off" />
           </div>
 
           <div className={styles.formGroup}>
             <label>Episodios</label>
-            <input type="number" name="episodios" value={formData.episodios} onChange={handleChange} required />
+            <input type="number" id="episodios" value={formData.episodios} onChange={handleChange} autoComplete="off" />
           </div>
 
+          {error && (
+            <div className={styles.errorMessage}>
+              {error}
+            </div>
+          )}
+
           <div className={styles.formActions}>
-            <button type="submit" className={styles.addBtn}>GUARDAR</button> {/* <-- Corregido */}
+            <button type="submit" className={styles.addBtn}>GUARDAR</button>
             <button type="button" className={styles.clearBtn} onClick={onClose}>CANCELAR</button>
           </div>
 
