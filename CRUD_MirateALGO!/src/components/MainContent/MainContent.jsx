@@ -1,7 +1,6 @@
 import FormEdit from '../forms/FormEdit';
 import FormAdd from '../forms/FormAdd';
 import React, { useState, useEffect, useRef } from 'react';
-import FormEdit from '../forms/FormEdit';
 import styles from './MainContent.module.css';
 const TMDB_API_KEY = 'ac0bd5d0ec2bb3cb455738106df4c6aa'; 
 const BASE_URL = 'https://api.themoviedb.org/3';
