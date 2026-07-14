@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .navbar{
     height:75px;
     background:#2d2b2b;
@@ -9,6 +10,21 @@
     position:relative;
     border-bottom:1px solid #3d3d3d;
     z-index:100;
+=======
+/* Barra de navegación principal */
+.navbarContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2F2D2E; /* Color oscuro del fondo de la barra */
+  padding: 12px 24px;
+  height: 64px;
+  color: #ffffff;
+  position: relative;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  z-index: 100;
+>>>>>>> f754eb70009e455dfbb55bc6ad64dffecce4d2a7
 }
 
 .rightSection{

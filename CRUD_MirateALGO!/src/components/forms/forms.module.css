@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContainer {
+  background-color: #383637; 
+  width: 450px;
+  max-height: 90vh;
+  border-radius: 28px;
+  padding: 25px 35px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modalTitle {
+  font-family: 'WS Paradose', serif;
+  color: #FFFFFF;
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: #FFFFFF;
+  font-family: 'WS Paradose', serif;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.closeBtn:hover {
+  transform: scale(1.2);
+}
+
+.formBody {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.formGroup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.formGroup label {
+  color: #FFFFFF;
+  font-family: 'Georgia', serif;
+  font-size: 1rem;
+  width: 30%;
+  text-align: right;
+  padding-right: 15px;
+}
+
+.formGroup input, 
+.formGroup select {
+  width: 70%;
+  background-color: #2F2D2E;
+  border: 1px solid #99C24D; 
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: #FFFFFF;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.95rem;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.formGroup input::placeholder {
+  color: #666;
+}
+
+.formActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+  gap: 20px;
+}
+
+.addBtn, .clearBtn {
+  flex: 1;
+  background-color: #048BA8; 
+  color: #FFFFFF;
+  border: none;
+  padding: 12px 0;
+  border-radius: 14px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.addBtn:hover, .clearBtn:hover {
+  background-color: #03728a;
+}
+
+.addBtn:active, .clearBtn:active {
+  transform: scale(0.98);
+}
+
+.errorMessage {
+  color: #ff4d4d;
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 8px;
+  border-radius: 6px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}

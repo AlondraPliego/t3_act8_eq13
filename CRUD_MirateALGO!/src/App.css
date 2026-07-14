@@ -14,9 +14,14 @@ body{
     min-height:100vh;
 }
 
-.contenido{
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    background:#2f2d2d;
+/* El área central donde va la tabla se expande automáticamente */
+.content-area {
+  flex: 1;
+  overflow-y: auto; /* Permite scroll vertical interno si hay muchas filas */
+  background-color: #2F2D2E;
+  display:flex;
+  flex-direction:column;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+

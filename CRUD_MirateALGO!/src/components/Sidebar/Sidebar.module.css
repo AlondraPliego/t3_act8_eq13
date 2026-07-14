@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .sidebar{
     width:250px;
     height:100vh;
@@ -8,6 +9,17 @@
     padding:25px 20px;
     transition:all .3s ease;
     overflow:hidden;
+=======
+/* Contenedor principal del Sidebar */
+.sidebar {
+  background-color: #2F2D2E; /* Color oscuro del fondo del sidebar */
+  height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+  overflow-x: hidden;
+>>>>>>> f754eb70009e455dfbb55bc6ad64dffecce4d2a7
 }
 
 .closed{

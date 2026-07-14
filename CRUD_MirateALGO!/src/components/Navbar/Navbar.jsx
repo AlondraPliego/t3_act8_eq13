@@ -7,6 +7,7 @@ function Navbar() {
     const [mostrarMenu, setMostrarMenu] = useState(false);
     const [mostrarNotificaciones, setMostrarNotificaciones] = useState(false);
 
+<<<<<<< HEAD
     const [notificaciones, setNotificaciones] = useState([]);
 
     const [usuario, setUsuario] = useState({
@@ -141,6 +142,56 @@ function Navbar() {
 
                 )}
 
+=======
+  return (
+    <nav className={styles.navbarContainer}>
+      <div className={styles.brandSection}>
+        <img 
+          src="icons/tvIcon.png" 
+          alt="Icono descriptivo de televisión clásica" 
+          className={styles.tvIcon} 
+        />
+        <span className={styles.brandName}>MirateALGO!</span>
+      </div>
+
+      {/* LADO DERECHO: Centro de Control del Usuario */}
+      <div className={styles.toolsSection} ref={dropdownRef}>
+        
+        {/* Botón de Notificaciones */}
+        <button className={styles.notificationBtn} aria-label="Notificaciones del sistema">
+          <img 
+            src="icons/bellIcon.png" 
+            alt="Icono descriptivo de campana de notificaciones" 
+            className={styles.toolIcon} 
+          />
+        </button>
+
+        {/* Botón de Perfil de Usuario */}
+        <button 
+          className={styles.userMenuTrigger} 
+          onClick={toggleDropdown}
+          aria-expanded={isDropdownOpen}
+          aria-label="Menú de perfil de usuario"
+        >
+          <img 
+            src="icons/userIcon.png" 
+            alt="Icono descriptivo de silueta de usuario" 
+            className={styles.toolIcon} 
+          />
+          <span className={styles.userText}>Usuario</span>
+        </button>
+
+        {/* Menú Desplegable Flotante (Esquina Superior Derecha) */}
+        {isDropdownOpen && (
+          <div className={styles.profileDropdown}>
+            {/* Foto de perfil del usuario centrada */}
+            <div className={styles.avatarContainer}>
+              <img 
+                src="images/userProfileAvatar.png" 
+                alt="Foto de perfil del usuario administrador centrada" 
+                className={styles.profileImageAvatar} 
+              />
+>>>>>>> f754eb70009e455dfbb55bc6ad64dffecce4d2a7
             </div>
 
         </header>

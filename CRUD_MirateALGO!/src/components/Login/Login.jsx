@@ -2,16 +2,58 @@ import React, { useState } from 'react';
 import styles from './Login.module.css';
 
 export default function Login({ onLoginSuccess }) {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí manejarías la lógica de inicio de sesión
-    console.log({ email, password, rememberMe });
-   if (onLoginSuccess) {
-      onLoginSuccess();
+    setError(null);
+
+    if (!username.trim() || !password.trim()) {
+      setError('Por favor, ingresa tu usuario y contraseña.');
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('https://dummyjson.com/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: username, 
+          password: password,
+          expiresInMins: 30,
+        })
+      });
+
+      const data = await response.json();
+
+      // 2. Si la API devuelve error
+      if (!response.ok) {
+        throw new Error(data.message === 'Invalid credentials' ? 'Usuario o contraseña incorrectos.' : data.message);
+      }
+
+      console.log('Login exitoso:', data);
+      
+      if (rememberMe) {
+        localStorage.setItem('token', data.token);
+      } else {
+        sessionStorage.setItem('token', data.token);
+      }
+
+      if (onLoginSuccess) {
+        onLoginSuccess(data);
+      }
+
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -19,20 +61,21 @@ export default function Login({ onLoginSuccess }) {
     <div className={styles.pageContainer}>
       <div className={styles.loginCard}>
         
-        {/* Sección del Formulario */}
         <div className={styles.formSection}>
           <h1 className={styles.title}>Iniciar Sesión</h1>
           
-          <form onSubmit={handleSubmit} className={styles.form}>
+          {}
+          <form onSubmit={handleSubmit} className={styles.form} noValidate>
+            
             <div className={styles.inputGroup}>
               <input 
-                type="email" 
-                id="email"
-                placeholder="Correo" 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
+                type="text" 
+                id="username"
+                placeholder="Nombre de usuario" 
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 className={styles.input}
+                autoComplete="off"
               />
             </div>
 
@@ -43,7 +86,6 @@ export default function Login({ onLoginSuccess }) {
                 placeholder="Contraseña" 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required
                 className={styles.input}
               />
             </div>
@@ -61,34 +103,42 @@ export default function Login({ onLoginSuccess }) {
               </label>
             </div>
 
-            <button type="submit" className={styles.submitBtn}>
-              Entrar
+            {}
+            {error && (
+              <div className={styles.errorMessage}>
+                {error}
+              </div>
+            )}
+
+            <button 
+              type="submit" 
+              className={styles.submitBtn}
+              disabled={isLoading}
+            >
+              {isLoading ? 'Iniciando...' : 'Entrar'}
             </button>
           </form>
 
-          {/* Divisor */}
           <div className={styles.divider}>
             <span>O continuar con</span>
           </div>
 
-          {/* Botones de Redes Sociales */}
           <div className={styles.socialGroup}>
             <button className={styles.socialBtn} aria-label="Iniciar sesión con Google">
-              <img src="/icons/google-icon.svg" alt="Google Icon" className={styles.socialIcon} />
+              <img src="icons/googlelogo.svg" alt="Google Icon" className={styles.socialIcon} />
             </button>
             <button className={styles.socialBtn} aria-label="Iniciar sesión con Facebook">
-              <img src="/icons/facebook-icon.svg" alt="Facebook Icon" className={styles.socialIcon} />
+              <img src="icons/facebooklogo.svg" alt="Facebook Icon" className={styles.socialIcon} />
             </button>
             <button className={styles.socialBtn} aria-label="Iniciar sesión con Apple">
-              <img src="/icons/apple-icon.svg" alt="Apple Icon" className={styles.socialIcon} />
+              <img src="icons/applelogo.svg" alt="Apple Icon" className={styles.socialIcon} />
             </button>
           </div>
         </div>
 
-        {/* Sección de la Imagen de Portada */}
         <div className={styles.imageSection}>
           <img 
-            src="/images/cinema-entrance-amc.jpg" 
+            src="img/imagenlogin.jpg"
             alt="AMC Cinema Entrance Billboard" 
             className={styles.coverImage}
           />
