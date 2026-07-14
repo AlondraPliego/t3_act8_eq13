@@ -12,7 +12,11 @@
   "dependencies": {
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
+<<<<<<< HEAD
+    "react-icons": "^5.7.0"
+=======
     "sweetalert2": "^11.26.25"
+>>>>>>> f754eb70009e455dfbb55bc6ad64dffecce4d2a7
   },
   "devDependencies": {
     "@types/react": "^19.2.17",

@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+.sidebar{
+    width:250px;
+    height:100vh;
+    background:#2d2b2b;
+    color:white;
+    display:flex;
+    flex-direction:column;
+    padding:25px 20px;
+    transition:all .3s ease;
+    overflow:hidden;
+=======
 /* Contenedor principal del Sidebar */
 .sidebar {
   background-color: #2F2D2E; /* Color oscuro del fondo del sidebar */
@@ -7,120 +19,81 @@
   transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   box-sizing: border-box;
   overflow-x: hidden;
+>>>>>>> f754eb70009e455dfbb55bc6ad64dffecce4d2a7
 }
 
-.collapsed {
-  width: 76px;
+.closed{
+    width:90px;
 }
 
-.expanded {
-  width: 240px;
+.logo{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:40px;
+    min-height:40px;
 }
 
-/* Área del botón de hamburguesa */
-.hamburgerSection {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px 0;
-  width: 100%;
+.logo h2{
+    font-size:28px;
+    white-space:nowrap;
 }
 
-.expanded .hamburgerSection {
-  justify-content: flex-start;
-  padding-left: 20px;
+.menuBtn{
+    width:55px;
+    height:55px;
+    margin:0 auto 40px auto;
+    border:none;
+    background:none;
+    color:white;
+    font-size:30px;
+    cursor:pointer;
+    transition:.3s;
 }
 
-.hamburgerBtn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
+.menuBtn:hover{
+    color:#0d6efd;
 }
 
-.hamburgerBtn:hover {
-  background-color: rgba(255, 255, 255, 0.08);
+nav{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
 }
 
-.hamburgerIcon {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
+nav button{
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:15px;
+    background:transparent;
+    color:white;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:20px;
+    transition:.25s;
 }
 
-/* Menú de navegación */
-.navMenu {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 10px 12px; /* Margen lateral para que el bloque de hover no pegue a las paredes */
-  width: 100%;
-  box-sizing: border-box;
+nav button:hover{
+    background:#3c3c3c;
 }
 
-/* Botón del ítem de menú */
-.navItem {
-  background: none;
-  border: none;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  border-radius: 4px; /* Esquinas ligeramente redondeadas para la caja azul */
-  color: #FFFFFF;
-  cursor: pointer;
-  padding: 12px 0;
-  transition: background-color 0.15s ease;
-  box-sizing: border-box;
+.active{
+    background:#0d6efd !important;
 }
 
-/* Contenedor interno para alinear icono y texto uniformemente */
-.itemContent {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  box-sizing: border-box;
+nav svg{
+    font-size:24px;
+    min-width:24px;
 }
 
-.collapsed .itemContent {
-  justify-content: center;
+.closed nav button{
+    justify-content:center;
+    padding:15px 0;
 }
 
-.expanded .itemContent {
-  justify-content: flex-start;
-  padding-left: 12px;
-  gap: 16px;
-}
-
-/* ====== EFECTO HOVER SOLICITADO (Caja azul sólida) ====== */
-.navItem:hover {
-  background-color: #048BA8; /* Fondo azul completo */
-  color: #FFFFFF; /* Texto e icono se mantienen blancos */
-}
-
-.menuIcon {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-  flex-shrink: 0;
-}
-
-/* Comportamiento del texto */
-.menuText {
-  font-family: 'Georgia', serif;
-  font-size: 1rem;
-  white-space: nowrap;
-  transition: opacity 0.2s ease;
-}
-
-/* Ocultar texto suavemente cuando esté colapsado */
-.collapsed .menuText {
-  opacity: 0;
-  display: none;
-}
-
-.expanded .menuText {
-  opacity: 1;
+.closed nav button span{
+    display:none;
 }
