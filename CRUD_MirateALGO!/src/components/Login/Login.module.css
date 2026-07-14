@@ -189,10 +189,6 @@
   margin-bottom: 5px;
 }
 
-
-/* ==========================================================================
-   Media Query para Responsividad (Móviles y Tablets verticales)
-   ========================================================================== */
 @media (max-width: 768px) {
   .loginCard {
     grid-template-columns: 1fr; /* Pasa a una sola columna */
