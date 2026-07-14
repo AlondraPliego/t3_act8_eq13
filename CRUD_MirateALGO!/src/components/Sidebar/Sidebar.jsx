@@ -11,12 +11,11 @@ export default function Sidebar() {
 
   // Menú con sus nombres correspondientes y rutas de iconos descriptivos
   const menuItems = [
-    { id: 'inicio', text: 'Inicio', icon: 'icons/iconoHome.png' },
-    { id: 'tendencias', text: 'Tendencias', icon: 'icons/iconoTrends.png' },
-    { id: 'favoritos', text: 'Favoritos', icon: 'icons/iconoFavorites.png' },
-    { id: 'mi-lista', text: 'Mi lista', icon: 'icons/iconoMyList.png' },
-    { id: 'configuracion', text: 'Configuración', icon: 'icons/iconoSettings.png' },
-    { id: 'cerrar-sesion', text: 'Cerrar Sesión', icon: 'icons/iconoLogout.png' },
+    { id: 'inicio', text: 'Inicio', icon: 'icons/homelogo.svg' },
+    { id: 'tendencias', text: 'Tendencias', icon: 'icons/trendlogo.svg' },
+    { id: 'favoritos', text: 'Favoritos', icon: 'icons/favlogo.svg' },
+    { id: 'mi-lista', text: 'Mi lista', icon: 'icons/mylistlogo.svg' },
+    { id: 'configuracion', text: 'Configuración', icon: 'icons/settingslogo.svg' },
   ];
 
   return (

@@ -105,6 +105,7 @@
   height: 24px;
   object-fit: contain;
   flex-shrink: 0;
+  color: #FFFFFF;
 }
 
 /* Comportamiento del texto */
