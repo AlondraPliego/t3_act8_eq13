@@ -202,14 +202,33 @@ useEffect(() => {
   };
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (activeDropdown && !dropdownRefs.current[activeDropdown]?.contains(e.target)) {
-        setActiveDropdown(null);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [activeDropdown]);
+      const handleClickOutside = (e) => {
+        if (activeDropdown && !dropdownRefs.current[activeDropdown]?.contains(e.target)) {
+          setActiveDropdown(null);
+        }
+      };
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [activeDropdown]);
+
+    const tokenActivo = localStorage.getItem('token') || sessionStorage.getItem('token');
+
+    if (!tokenActivo) {
+      return (
+        <div className={styles.unauthorizedContainer}>
+          <div className={styles.unauthorizedCard}>
+            <h2>Acceso Restringido</h2>
+            <p>Es necesario iniciar sesión para visualizar el catálogo de series.</p>
+            <button 
+              className={styles.unauthorizedBtn} 
+              onClick={() => window.location.reload()}
+            >
+              Ir al Inicio de Sesión
+            </button>
+          </div>
+        </div>
+      );
+    }
 
   return (
     <div className={styles.mainContainer}>
