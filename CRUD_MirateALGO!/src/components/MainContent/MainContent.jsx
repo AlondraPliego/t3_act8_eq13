@@ -14,6 +14,8 @@ const GENRE_IDS = {
 
 export default function MainContent() {
   const [seriesData, setSeriesData] = useState([]);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+const [serieAEditar, setSerieAEditar] = useState(null);
   const [totalRecords, setTotalRecords] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -277,7 +279,10 @@ useEffect(() => {
                   <td>
                     <div className={styles.rowActionsContainer}>
                       <img src="icons/heart.svg" alt="Favorito" className={styles.actionIcon} />
-                      <img src="icons/editar.png" alt="Editar elemento" className={styles.actionIcon} />
+                      <img src="icons/editar.png" alt="Editar elemento" className={styles.actionIcon} onClick={() => {
+                        setSerieAEditar(serie); 
+                        setIsEditOpen(true);
+                    }} />
                       <img src="icons/eliminar.png" alt="Eliminar elemento" className={styles.actionIcon} />
                     </div>
                   </td>
@@ -330,7 +335,15 @@ useEffect(() => {
         </div>
 
       </div>
-
+        <FormEdit 
+                isOpen={isEditOpen}
+                onClose={() => setIsEditOpen(false)}
+                elementoSeleccionado={serieAEditar}
+                onEditElement={(datosActualizados) => {
+                console.log("¡Listo para guardar en la API o estado!", datosActualizados);
+                // Aquí pones la lógica para actualizar los datos
+                }}
+            />
     </div>
   );
 }
