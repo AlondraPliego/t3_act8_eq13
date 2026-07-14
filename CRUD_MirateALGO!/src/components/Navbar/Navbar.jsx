@@ -3,7 +3,22 @@ import styles from './Navbar.module.css';
 
 export default function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [userData, setUserData] = useState(null);
   const dropdownRef = useRef(null);
+
+  // Leemos los datos del usuario que guardo el Login
+  useEffect(() => {
+    const datosGuardados = localStorage.getItem('userData') || sessionStorage.getItem('userData');
+    if (datosGuardados) {
+      try {
+        setUserData(JSON.parse(datosGuardados));
+      } catch (error) {
+        console.error("Error al leer los datos del usuario:", error);
+      }
+    }
+  }, []);
+
+  // Cerrar el menú si se click el botón
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -17,6 +32,27 @@ export default function Navbar() {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+
+  // cerrar Sesion sin recargar la pagina
+  const handleLogout = () => {
+    // Elimina lo guardado en local y session storage
+    localStorage.removeItem('token');
+    localStorage.removeItem('userData');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('userData');
+
+    // Actualizar estado local para mostrar "Usuario Invitado"
+    setUserData(null);
+    setIsDropdownOpen(false);
+
+    window.dispatchEvent(new Event('session-changed'));
+  };
+
+  // Uusuario que usamos de prueba y cuando no se inicio sesión
+  const nombreMostrar = userData ? `${userData.firstName} ${userData.lastName}` : "Invitado";
+  const emailMostrar = userData ? userData.email : "invitado@miratealgo.com";
+  const imagenMostrar = userData ? userData.image : "icons/invitadologo.svg";
+  const usuarioCorto = userData ? userData.username : "Usuario";
 
   return (
     <nav className={styles.navbarContainer}>
@@ -53,7 +89,7 @@ export default function Navbar() {
             alt="Icono descriptivo de silueta de usuario" 
             className={styles.toolIcon} 
           />
-          <span className={styles.userText}>Usuario</span>
+          <span className={styles.userText}>{usuarioCorto}</span>
         </button>
 
         {/* Menú Desplegable Flotante (Esquina Superior Derecha) */}
@@ -62,18 +98,18 @@ export default function Navbar() {
             {/* Foto de perfil del usuario centrada */}
             <div className={styles.avatarContainer}>
               <img 
-                src="images/userProfileAvatar.png" 
-                alt="Foto de perfil del usuario administrador centrada" 
+                src={imagenMostrar} 
+                alt="Foto de perfil del usuario centrada" 
                 className={styles.profileImageAvatar} 
               />
             </div>
 
-            {/* Detalles de Cuenta */}
-            <h4 className={styles.userNameDisplay}>Usuario Invitado</h4>
-            <p className={styles.userEmailDisplay}>usuario.demo@miratealgo.com</p>
+            {/* Detalles de Cuenta reales de DummyJSON */}
+            <h4 className={styles.userNameDisplay}>{nombreMostrar}</h4>
+            <p className={styles.userEmailDisplay}>{emailMostrar}</p>
 
-            {/* Acción de Salida */}
-            <button className={styles.logoutActionBtn} onClick={() => setIsDropdownOpen(false)}>
+            {/* Acción de Salida real */}
+            <button className={styles.logoutActionBtn} onClick={handleLogout}>
               Cerrar Sesión
             </button>
           </div>

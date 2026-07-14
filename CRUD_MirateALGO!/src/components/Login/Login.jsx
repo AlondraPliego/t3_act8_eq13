@@ -40,10 +40,16 @@ export default function Login({ onLoginSuccess }) {
 
       console.log('Login exitoso:', data);
       
+      sessionStorage.setItem('tempUser', username);
+      sessionStorage.setItem('tempPass', password);
+      
+      // se guardan los datos completos del usuario para que puedan pasar a la sig ventana
       if (rememberMe) {
         localStorage.setItem('token', data.token);
+        localStorage.setItem('userData', JSON.stringify(data)); // guarda todo
       } else {
         sessionStorage.setItem('token', data.token);
+        sessionStorage.setItem('userData', JSON.stringify(data));
       }
 
       if (onLoginSuccess) {
