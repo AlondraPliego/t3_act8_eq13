@@ -1,12 +1,13 @@
 .navbar{
     height:75px;
-    background:white;
+    background:#2d2b2b;
+    color:white;
     display:flex;
     justify-content:space-between;
     align-items:center;
     padding:0 30px;
     position:relative;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
+    border-bottom:1px solid #3d3d3d;
     z-index:100;
 }
 
@@ -20,6 +21,7 @@
 .bell{
     border:none;
     background:none;
+    color:white;
     font-size:24px;
     cursor:pointer;
     transition:.3s;
@@ -35,6 +37,7 @@
     align-items:center;
     gap:10px;
     cursor:pointer;
+    color:white;
 }
 
 .profile img{
@@ -49,9 +52,10 @@
     top:85px;
     right:20px;
     width:260px;
-    background:white;
+    background:#3a3838;
+    color:white;
     border-radius:12px;
-    box-shadow:0 5px 15px rgba(0,0,0,.2);
+    box-shadow:0 5px 15px rgba(0,0,0,.4);
     padding:20px;
     text-align:center;
     animation:fade .25s ease;
@@ -70,7 +74,7 @@
 }
 
 .dropdown p{
-    color:gray;
+    color:#c7c7c7;
     font-size:14px;
     margin-bottom:20px;
 }
@@ -97,9 +101,10 @@
     width:320px;
     max-height:420px;
     overflow-y:auto;
-    background:white;
+    background:#3a3838;
+    color:white;
     border-radius:12px;
-    box-shadow:0 5px 15px rgba(0,0,0,.2);
+    box-shadow:0 5px 15px rgba(0,0,0,.4);
     padding:20px;
     animation:fade .25s ease;
 }
@@ -110,14 +115,13 @@
 
 .notificationItem{
     padding:12px;
-    border-radius:8px;
-    border-bottom:1px solid #ececec;
+    border-bottom:1px solid #4a4a4a;
     cursor:pointer;
     transition:.3s;
 }
 
 .notificationItem:hover{
-    background:#f5f5f5;
+    background:#4a4a4a;
     color:#0d6efd;
 }
 
