@@ -35,7 +35,7 @@ export default function Navbar() {
         {/* Botón de Notificaciones */}
         <button className={styles.notificationBtn} aria-label="Notificaciones del sistema">
           <img 
-            src="icons/bellIcon.png" 
+            src="icons/notificacion.svg" 
             alt="Icono descriptivo de campana de notificaciones" 
             className={styles.toolIcon} 
           />
@@ -49,7 +49,7 @@ export default function Navbar() {
           aria-label="Menú de perfil de usuario"
         >
           <img 
-            src="icons/userIcon.png" 
+            src="icons/usuario.svg" 
             alt="Icono descriptivo de silueta de usuario" 
             className={styles.toolIcon} 
           />
