@@ -124,21 +124,21 @@ export default function Login({ onLoginSuccess }) {
           </div>
 
           <div className={styles.socialGroup}>
-            <button type="button" className={styles.socialBtn} aria-label="Iniciar sesión con Google">
-              <img src="/icons/googlelogo.svg" alt="Google Icon" className={styles.socialIcon} />
+            <button className={styles.socialBtn} aria-label="Iniciar sesión con Google">
+              <img src="icons/googlelogo.svg" alt="Google Icon" className={styles.socialIcon} />
             </button>
-            <button type="button" className={styles.socialBtn} aria-label="Iniciar sesión con Facebook">
-              <img src="/icons/facebooklogo.svg" alt="Facebook Icon" className={styles.socialIcon} />
+            <button className={styles.socialBtn} aria-label="Iniciar sesión con Facebook">
+              <img src="icons/facebooklogo.svg" alt="Facebook Icon" className={styles.socialIcon} />
             </button>
-            <button type="button" className={styles.socialBtn} aria-label="Iniciar sesión con Apple">
-              <img src="/icons/applelogo.svg" alt="Apple Icon" className={styles.socialIcon} />
+            <button className={styles.socialBtn} aria-label="Iniciar sesión con Apple">
+              <img src="icons/applelogo.svg" alt="Apple Icon" className={styles.socialIcon} />
             </button>
           </div>
         </div>
 
         <div className={styles.imageSection}>
           <img 
-            src="/img/imagenlogin.jpg"
+            src="img/imagenlogin.jpg"
             alt="AMC Cinema Entrance Billboard" 
             className={styles.coverImage}
           />

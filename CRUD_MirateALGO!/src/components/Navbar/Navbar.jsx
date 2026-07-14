@@ -22,7 +22,7 @@ export default function Navbar() {
     <nav className={styles.navbarContainer}>
       <div className={styles.brandSection}>
         <img 
-          src="/icons/tvIcon.png" 
+          src="icons/tvIcon.png" 
           alt="Icono descriptivo de televisión clásica" 
           className={styles.tvIcon} 
         />
@@ -35,7 +35,7 @@ export default function Navbar() {
         {/* Botón de Notificaciones */}
         <button className={styles.notificationBtn} aria-label="Notificaciones del sistema">
           <img 
-            src="/icons/bellIcon.png" 
+            src="icons/bellIcon.png" 
             alt="Icono descriptivo de campana de notificaciones" 
             className={styles.toolIcon} 
           />
@@ -49,7 +49,7 @@ export default function Navbar() {
           aria-label="Menú de perfil de usuario"
         >
           <img 
-            src="/icons/userIcon.png" 
+            src="icons/userIcon.png" 
             alt="Icono descriptivo de silueta de usuario" 
             className={styles.toolIcon} 
           />
@@ -62,7 +62,7 @@ export default function Navbar() {
             {/* Foto de perfil del usuario centrada */}
             <div className={styles.avatarContainer}>
               <img 
-                src="/images/userProfileAvatar.png" 
+                src="images/userProfileAvatar.png" 
                 alt="Foto de perfil del usuario administrador centrada" 
                 className={styles.profileImageAvatar} 
               />
