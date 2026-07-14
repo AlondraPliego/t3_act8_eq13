@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import Swal from 'sweetalert2'; // <-- Importación directa de SweetAlert2
+import React, { useState, useEffect } from 'react';
 import styles from './forms.module.css';
 
 export default function FormAdd({ isOpen, onClose, onAddElement }) {
-  const [formData, setFormData] = useState({
+  const estadoInicial = {
     titulo: '',
     año: '',
     calificacion: '',
@@ -12,46 +11,59 @@ export default function FormAdd({ isOpen, onClose, onAddElement }) {
     temporadas: '',
     canal: '',
     episodios: ''
-  });
+  };
+
+  const [formData, setFormData] = useState(estadoInicial);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      setFormData(estadoInicial);
+      setError(null);
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    // Se utiliza 'id' para evitar el autocompletado basado en el atributo 'name'
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
   };
 
   const handleClear = () => {
-    setFormData({
-      titulo: '',
-      año: '',
-      calificacion: '',
-      estado: 'Emision',
-      genero: 'Comedia',
-      temporadas: '',
-      canal: '',
-      episodios: ''
-    });
+    setFormData(estadoInicial);
+    setError(null);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setError(null);
 
-    // SweetAlert2 preguntando si estás seguro
+    // Validacion de campos vacios
+    const hasEmptyFields = Object.values(formData).some(val => String(val).trim() === '');
+    
+    if (hasEmptyFields) {
+      setError('Es necesario rellenar todos los campos.');
+      return;
+    }
+
     Swal.fire({
       title: '¿Estás seguro?',
       text: `Vas a añadir la serie "${formData.titulo}" al catálogo.`,
       icon: 'question',
       showCancelButton: true,
-      confirmButtonColor: '#048BA8', // Tono cian de tus botones
-      cancelButtonColor: '#4A4849',  // Gris oscuro
+      confirmButtonColor: '#048BA8', 
+      cancelButtonColor: '#4A4849',  
       confirmButtonText: 'Sí, añadir',
       cancelButtonText: 'Cancelar',
       background: '#2F2D2E',         
       color: '#FFFFFF'
     }).then((result) => {
       if (result.isConfirmed) {
-        if (onAddElement) onAddElement(formData);
+        if (onAddElement) {
+          onAddElement({ ...formData, id: Date.now() });
+        }
         
         Swal.fire({
           title: '¡Añadido!',
@@ -62,6 +74,7 @@ export default function FormAdd({ isOpen, onClose, onAddElement }) {
           color: '#FFFFFF'
         });
         
+        handleClear();
         onClose(); 
       }
     });
@@ -76,26 +89,26 @@ export default function FormAdd({ isOpen, onClose, onAddElement }) {
           <button className={styles.closeBtn} onClick={onClose}>X</button>
         </div>
 
-        <form onSubmit={handleSubmit} className={styles.formBody}>
+        <form onSubmit={handleSubmit} className={styles.formBody} noValidate autoComplete="off">
           
           <div className={styles.formGroup}>
             <label>Titulo</label>
-            <input type="text" name="titulo" value={formData.titulo} onChange={handleChange} required placeholder="Ej: Harry Potter" />
+            <input type="text" id="titulo" value={formData.titulo} onChange={handleChange} autoComplete="off" placeholder="Ej: Harry Potter" />
           </div>
 
           <div className={styles.formGroup}>
             <label>Año</label>
-            <input type="number" name="año" value={formData.año} onChange={handleChange} required placeholder="Ej: 1980" />
+            <input type="number" id="año" value={formData.año} onChange={handleChange} autoComplete="off" placeholder="Ej: 1980" />
           </div>
 
           <div className={styles.formGroup}>
             <label>Calificación</label>
-            <input type="number" step="0.1" name="calificacion" value={formData.calificacion} onChange={handleChange} required placeholder="Ej: 8.9" />
+            <input type="number" step="0.1" id="calificacion" value={formData.calificacion} onChange={handleChange} autoComplete="off" placeholder="Ej: 8.9" />
           </div>
 
           <div className={styles.formGroup}>
             <label>Estado</label>
-            <select name="estado" value={formData.estado} onChange={handleChange}>
+            <select id="estado" value={formData.estado} onChange={handleChange}>
               <option value="Emision">Emision</option>
               <option value="Finalizada">Finalizada</option>
               <option value="Cancelado">Cancelado</option>
@@ -104,7 +117,7 @@ export default function FormAdd({ isOpen, onClose, onAddElement }) {
 
           <div className={styles.formGroup}>
             <label>Genero</label>
-            <select name="genero" value={formData.genero} onChange={handleChange}>
+            <select id="genero" value={formData.genero} onChange={handleChange}>
               <option value="Comedia">Comedia</option>
               <option value="Terror">Terror</option>
               <option value="Drama">Drama</option>
@@ -114,18 +127,24 @@ export default function FormAdd({ isOpen, onClose, onAddElement }) {
 
           <div className={styles.formGroup}>
             <label>Temporadas</label>
-            <input type="number" name="temporadas" value={formData.temporadas} onChange={handleChange} required placeholder="Ej: 4" />
+            <input type="number" id="temporadas" value={formData.temporadas} onChange={handleChange} autoComplete="off" placeholder="Ej: 4" />
           </div>
 
           <div className={styles.formGroup}>
             <label>Canal</label>
-            <input type="text" name="canal" value={formData.canal} onChange={handleChange} required placeholder="Ej: NETFLIX" />
+            <input type="text" id="canal" value={formData.canal} onChange={handleChange} autoComplete="off" placeholder="Ej: NETFLIX" />
           </div>
 
           <div className={styles.formGroup}>
             <label>Episodios</label>
-            <input type="number" name="episodios" value={formData.episodios} onChange={handleChange} required placeholder="Ej: 56" />
+            <input type="number" id="episodios" value={formData.episodios} onChange={handleChange} autoComplete="off" placeholder="Ej: 56" />
           </div>
+
+          {error && (
+            <div className={styles.errorMessage}>
+              {error}
+            </div>
+          )}
 
           <div className={styles.formActions}>
             <button type="submit" className={styles.addBtn}>AÑADIR</button>

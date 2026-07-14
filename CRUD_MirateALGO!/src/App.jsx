@@ -1,15 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Login from './components/Login/Login';
 import Navbar from './components/Navbar/Navbar';
 import Sidebar from './components/Sidebar/Sidebar';
-import MainContent from './components/MainContent/MainContent'; // <-- 1. Importamos la zona central
+import MainContent from './components/MainContent/MainContent';
 import './App.css';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  //busca una llave guardada en cualquiera de los dos guardados
+  const tokenGuardado = localStorage.getItem('token') || sessionStorage.getItem('token');
+
+  //El !! convierte el resultado en un booleano, true si hay token, false si está vacío
+  const [isAuthenticated, setIsAuthenticated] = useState(!!tokenGuardado);
+
+  useEffect(() => {
+    const manejarBotonAtras = () => {
+      if (isAuthenticated) {
+        setIsAuthenticated(false);
+        
+        // para que cierre sesión.
+        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
+      }
+    };
+
+    window.addEventListener('popstate', manejarBotonAtras);
+    
+    return () => {
+      window.removeEventListener('popstate', manejarBotonAtras);
+    };
+  }, [isAuthenticated]);
 
   const handleLoginSuccess = () => {
     setIsAuthenticated(true);
+    window.history.pushState(null, '', window.location.href);
   };
 
   return (
@@ -17,15 +40,12 @@ function App() {
       {!isAuthenticated ? (
         <Login onLoginSuccess={handleLoginSuccess} />
       ) : (
-        /* Contenedor general de la aplicación una vez logueado */
         <div className="app-layout">
           <Navbar />
           
-          {/* Contenedor inferior que divide la pantalla horizontalmente */}
           <div className="main-wrapper">
             <Sidebar />
             
-            {/* 2. Reemplazamos el texto plano por el componente de la tabla */}
             <main className="content-area">
               <MainContent />
             </main>

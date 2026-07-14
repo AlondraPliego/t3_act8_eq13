@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -118,4 +120,15 @@
 
 .addBtn:active, .clearBtn:active {
   transform: scale(0.98);
+}
+
+.errorMessage {
+  color: #ff4d4d;
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 8px;
+  border-radius: 6px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
 }
