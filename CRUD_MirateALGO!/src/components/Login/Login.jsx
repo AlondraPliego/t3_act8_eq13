@@ -74,13 +74,13 @@ export default function Login({ onLoginSuccess }) {
           {/* Botones de Redes Sociales */}
           <div className={styles.socialGroup}>
             <button className={styles.socialBtn} aria-label="Iniciar sesión con Google">
-              <img src="/icons/googlelogo.svg" alt="Google Icon" className={styles.socialIcon} />
+              <img src="icons/googlelogo.svg" alt="Google Icon" className={styles.socialIcon} />
             </button>
             <button className={styles.socialBtn} aria-label="Iniciar sesión con Facebook">
-              <img src="/icons/facebooklogo.svg" alt="Facebook Icon" className={styles.socialIcon} />
+              <img src="icons/facebooklogo.svg" alt="Facebook Icon" className={styles.socialIcon} />
             </button>
             <button className={styles.socialBtn} aria-label="Iniciar sesión con Apple">
-              <img src="/icons/applelogo.svg" alt="Apple Icon" className={styles.socialIcon} />
+              <img src="icons/applelogo.svg" alt="Apple Icon" className={styles.socialIcon} />
             </button>
           </div>
         </div>
@@ -88,7 +88,7 @@ export default function Login({ onLoginSuccess }) {
         {/* Sección de la Imagen de Portada */}
         <div className={styles.imageSection}>
           <img 
-            src="/img/imagenlogin.jpg"
+            src="img/imagenlogin.jpg"
             alt="AMC Cinema Entrance Billboard" 
             className={styles.coverImage}
           />
