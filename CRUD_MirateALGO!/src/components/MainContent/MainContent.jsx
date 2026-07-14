@@ -1,6 +1,7 @@
 import FormEdit from '../forms/FormEdit';
 import FormAdd from '../forms/FormAdd';
 import React, { useState, useEffect, useRef } from 'react';
+import FormEdit from '../forms/FormEdit';
 import styles from './MainContent.module.css';
 const TMDB_API_KEY = 'ac0bd5d0ec2bb3cb455738106df4c6aa'; 
 const BASE_URL = 'https://api.themoviedb.org/3';
@@ -24,9 +25,9 @@ export default function MainContent() {
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 20; 
   const [activeDropdown, setActiveDropdown] = useState(null);
-  const [searchInput, setSearchInput] = useState(''); // Estado del input de texto
-  const [activeSearch, setActiveSearch] = useState(''); // Lo que se busca al dar Enter
-  const [genresList, setGenresList] = useState([]); // Guarda la lista oficial de géneros de la API
+  const [searchInput, setSearchInput] = useState(''); 
+  const [activeSearch, setActiveSearch] = useState(''); 
+  const [genresList, setGenresList] = useState([]);
   const [filters, setFilters] = useState({
     genero: 'Todos',
     año: 'Todos',
@@ -55,6 +56,16 @@ export default function MainContent() {
       }
     })
     .catch(err => console.error("Error al cargar géneros de TMDB:", err));
+}, []);
+
+useEffect(() => {
+  // Verificamos si SweetAlert2 ya está cargado para no duplicarlo
+  if (!window.Swal) {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+    script.async = true;
+    document.body.appendChild(script);
+  }
 }, []);
   useEffect(() => {
     let url = '';
