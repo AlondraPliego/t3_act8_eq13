@@ -1,3 +1,5 @@
+import FormEdit from '../forms/FormEdit';
+import FormAdd from '../forms/FormAdd';
 import React, { useState, useEffect, useRef } from 'react';
 import FormEdit from '../forms/FormEdit';
 import styles from './MainContent.module.css';
@@ -16,6 +18,7 @@ const GENRE_IDS = {
 export default function MainContent() {
   const [seriesData, setSeriesData] = useState([]);
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isAddOpen, setIsAddOpen] = useState(false);
   const [serieAEditar, setSerieAEditar] = useState(null);
   const [totalRecords, setTotalRecords] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
@@ -31,8 +34,18 @@ export default function MainContent() {
     estado: 'Todos'
   });
 
+ useEffect(() => {
+  // Verificamos si SweetAlert2 ya está cargado para no duplicarlo
+  if (!window.Swal) {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+    script.async = true;
+    document.body.appendChild(script);
+  }
+}, []);
+
   const dropdownRefs = useRef({});
-useEffect(() => {
+  useEffect(() => {
   const genresUrl = `${BASE_URL}/genre/tv/list?api_key=${TMDB_API_KEY}&language=es-ES`;
   
   fetch(genresUrl)
@@ -145,6 +158,36 @@ useEffect(() => {
     }
   };
 
+  const handleDelete = (serie) => {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: `Vas a eliminar "${serie.titulo}" de la lista. Esta acción no se puede deshacer.`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#4A4849',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      background: '#2F2D2E',
+      color: '#FFFFFF'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setSeriesData((seriesActuales) => 
+          seriesActuales.filter((item) => item.id !== serie.id)
+        );
+
+        Swal.fire({
+          title: '¡Eliminado!',
+          text: 'El contenido ha sido eliminado de la tabla.',
+          icon: 'success',
+          confirmButtonColor: '#048BA8',
+          background: '#2F2D2E',
+          color: '#FFFFFF'
+        });
+      }
+    });
+  };
+
   const indexOfFirstRecord = totalRecords === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
   const indexOfLastRecord = Math.min(currentPage * rowsPerPage, totalRecords);
 
@@ -249,7 +292,9 @@ useEffect(() => {
 
         {/* BOTON PARA AÑADIR*/}
         <div className={styles.globalActions}>
-          <button className={styles.actionBtnTop}><img src="icons/addIcon.png" alt="Añadir nuevo" /></button>
+          <button className={styles.actionBtnTop} onClick={() => setIsAddOpen(true)}>
+            <img src="icons/addIcon.png" alt="Añadir nuevo" />
+          </button>
         </div>
       </div>
 
@@ -294,7 +339,12 @@ useEffect(() => {
                         setSerieAEditar(serie); 
                         setIsEditOpen(true);
                     }} />
-                      <img src="icons/eliminar.png" alt="Eliminar elemento" className={styles.actionIcon} />
+                      <img 
+                        src="icons/eliminar.png" 
+                        alt="Eliminar elemento" 
+                        className={styles.actionIcon} 
+                        onClick={() => handleDelete(serie)}
+                      />
                     </div>
                   </td>
                 </tr>
@@ -347,14 +397,26 @@ useEffect(() => {
 
       </div>
         <FormEdit 
-                isOpen={isEditOpen}
-                onClose={() => setIsEditOpen(false)}
-                elementoSeleccionado={serieAEditar}
-                onEditElement={(datosActualizados) => {
-                console.log("¡Listo para guardar en la API o estado!", datosActualizados);
-                // Aquí pones la lógica para actualizar los datos
-                }}
-            />
+          isOpen={isEditOpen}
+          onClose={() => setIsEditOpen(false)}
+          elementoSeleccionado={serieAEditar}
+          onEditElement={(datosActualizados) => {
+            // Actualizamos el estado temporalmente
+            setSeriesData((seriesActuales) => 
+              seriesActuales.map((serie) => 
+                serie.id === datosActualizados.id ? datosActualizados : serie
+              )
+            );
+          }}
+        />
+
+        <FormAdd 
+        isOpen={isAddOpen}
+        onClose={() => setIsAddOpen(false)}
+        onAddElement={(nuevaSerie) => {
+          setSeriesData((seriesActuales) => [nuevaSerie, ...seriesActuales]);
+        }}
+      />
     </div>
   );
 }

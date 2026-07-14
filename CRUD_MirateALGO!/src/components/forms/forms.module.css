@@ -120,3 +120,14 @@
 .addBtn:active, .clearBtn:active {
   transform: scale(0.98);
 }
+
+.errorMessage {
+  color: #ff4d4d;
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 8px;
+  border-radius: 6px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}
