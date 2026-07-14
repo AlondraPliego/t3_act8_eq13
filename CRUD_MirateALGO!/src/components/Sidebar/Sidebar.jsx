@@ -1,15 +1,6 @@
-import styles from "./Sidebar.module.css";
+import React, { useState } from 'react';
+import styles from './Sidebar.module.css';
 
-<<<<<<< HEAD
-import {
-  FaHome,
-  FaFire,
-  FaHeart,
-  FaList,
-  FaCog,
-  FaBars,
-} from "react-icons/fa";
-=======
 export default function Sidebar() {
   // Estado para controlar si el menú está expandido o colapsado
   const [isExpanded, setIsExpanded] = useState(false);
@@ -27,17 +18,8 @@ export default function Sidebar() {
     { id: 'configuracion', text: 'Configuración', icon: 'icons/iconoSettings.png' },
     { id: 'cerrar-sesion', text: 'Cerrar Sesión', icon: 'icons/iconoLogout.png' },
   ];
->>>>>>> f754eb70009e455dfbb55bc6ad64dffecce4d2a7
 
-function Sidebar({ seccion, setSeccion, abierto, setAbierto }) {
   return (
-<<<<<<< HEAD
-    <aside
-      className={`${styles.sidebar} ${!abierto ? styles.closed : ""}`}
-    >
-      <div className={styles.logo}>
-        {abierto && <h2>MirateALGO!</h2>}
-=======
     <aside className={`${styles.sidebar} ${isExpanded ? styles.expanded : styles.collapsed}`}>
       
       {/* Botón de Hamburguesa */}
@@ -49,59 +31,25 @@ function Sidebar({ seccion, setSeccion, abierto, setAbierto }) {
             className={styles.hamburgerIcon} 
           />
         </button>
->>>>>>> f754eb70009e455dfbb55bc6ad64dffecce4d2a7
       </div>
 
-      <button
-        className={styles.menuBtn}
-        onClick={() => setAbierto(!abierto)}
-      >
-        <FaBars />
-      </button>
-
-      <nav>
-        <button
-          className={seccion === "inicio" ? styles.active : ""}
-          onClick={() => setSeccion("inicio")}
-        >
-          <FaHome />
-          {abierto && <span>Inicio</span>}
-        </button>
-
-        <button
-          className={seccion === "tendencias" ? styles.active : ""}
-          onClick={() => setSeccion("tendencias")}
-        >
-          <FaFire />
-          {abierto && <span>Tendencias</span>}
-        </button>
-
-        <button
-          className={seccion === "favoritos" ? styles.active : ""}
-          onClick={() => setSeccion("favoritos")}
-        >
-          <FaHeart />
-          {abierto && <span>Favoritos</span>}
-        </button>
-
-        <button
-          className={seccion === "lista" ? styles.active : ""}
-          onClick={() => setSeccion("lista")}
-        >
-          <FaList />
-          {abierto && <span>Mi lista</span>}
-        </button>
-
-        <button
-          className={seccion === "configuracion" ? styles.active : ""}
-          onClick={() => setSeccion("configuracion")}
-        >
-          <FaCog />
-          {abierto && <span>Configuración</span>}
-        </button>
+      {/* Lista de Navegación */}
+      <nav className={styles.navMenu}>
+        {menuItems.map((item) => (
+          <button key={item.id} className={styles.navItem} Skinner-text={item.text}>
+            <div className={styles.itemContent}>
+              <img 
+                src={item.icon} 
+                alt={`Icono descriptivo para ${item.text}`} 
+                className={styles.menuIcon} 
+              />
+              {/* El texto siempre está en el HTML, pero el CSS controla su aparición */}
+              <span className={styles.menuText}>{item.text}</span>
+            </div>
+          </button>
+        ))}
       </nav>
+
     </aside>
   );
 }
-
-export default Sidebar;
