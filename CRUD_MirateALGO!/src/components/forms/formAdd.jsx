@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Swal from 'sweetalert2'; // <-- Importación directa de SweetAlert2
 import styles from './forms.module.css';
 
 export default function FormAdd({ isOpen, onClose, onAddElement }) {

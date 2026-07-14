@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'; // <-- Importamos useEffect
-import Swal from 'sweetalert2'; 
 import styles from './forms.module.css';
 
 export default function FormEdit({ isOpen, onClose, elementoSeleccionado, onEditElement }) {
