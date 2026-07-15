@@ -4,14 +4,15 @@ import Swal from "sweetalert2";
 function Configuracion() {
 
     const [usuario, setUsuario] = useState({
-        nombre: "",
-        correo: "",
-        foto: ""
+        firstName: "",
+        lastName: "",
+        email: "",
+        image: ""
     });
 
     useEffect(() => {
 
-        const datos = localStorage.getItem("usuario");
+        const datos = localStorage.getItem("userData") || sessionStorage.getItem("userData");
 
         if (datos) {
             setUsuario(JSON.parse(datos));
@@ -22,7 +23,7 @@ function Configuracion() {
     const handleEliminarCuenta = () => {
         Swal.fire({
             title: "¿Eliminar tu cuenta?",
-            text: `Se cerrará tu sesión y se borrarán tus datos locales, ${usuario.nombre || "usuario"}. Esta acción no se puede deshacer.`,
+            text: `Se cerrará tu sesión y se borrarán tus datos locales, ${usuario.firstName || "usuario"}. Esta acción no se puede deshacer.`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#d33",
@@ -35,8 +36,9 @@ function Configuracion() {
             if (result.isConfirmed) {
                 // Limpiamos todo rastro de la sesión y del usuario
                 localStorage.removeItem("token");
-                localStorage.removeItem("usuario");
+                localStorage.removeItem("userData");
                 sessionStorage.removeItem("token");
+                sessionStorage.removeItem("userData");
 
                 Swal.fire({
                     title: "Cuenta eliminada",
@@ -63,7 +65,7 @@ function Configuracion() {
 
             <img
                 src={
-                    usuario.foto ||
+                    usuario.image ||
                     "https://cdn-icons-png.flaticon.com/512/149/149071.png"
                 }
                 alt="perfil"
@@ -71,9 +73,9 @@ function Configuracion() {
                 style={{ borderRadius: "50%" }}
             />
 
-            <h2>{usuario.nombre}</h2>
+            <h2>{usuario.firstName} {usuario.lastName}</h2>
 
-            <p><strong>Correo:</strong> {usuario.correo}</p>
+            <p><strong>Correo:</strong> {usuario.email}</p>
 
             <p><strong>Contraseña:</strong> ********</p>
 

@@ -4,6 +4,19 @@ import styles from './Navbar.module.css';
 export default function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userData, setUserData] = useState(null);
+
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+
+  const NOTIFICACIONES_MOCK = [
+    { id: 1, texto: '"Wednesday" sigue en tendencia esta semana.', tiempo: 'Hace 2 h' },
+    { id: 2, texto: 'Se agregaron nuevos episodios de "The Last of Us".', tiempo: 'Hace 5 h' },
+    { id: 3, texto: '"Stranger Things" continúa entre las más vistas.', tiempo: 'Ayer' },
+    { id: 4, texto: 'Nuevas series recomendadas para ti.', tiempo: 'Hace 2 días' },
+  ];
+
+  const [notificaciones] = useState(NOTIFICACIONES_MOCK);
+  const [noLeidas, setNoLeidas] = useState(NOTIFICACIONES_MOCK.length);
+
   const dropdownRef = useRef(null);
 
   // Leemos los datos del usuario que guardo el Login
@@ -23,6 +36,7 @@ export default function Navbar() {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
+        setIsNotificationsOpen(false);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -31,6 +45,18 @@ export default function Navbar() {
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+    setIsNotificationsOpen(false);
+  };
+
+  const toggleNotifications = () => {
+    const abriendo = !isNotificationsOpen;
+
+    setIsNotificationsOpen(abriendo);
+    setIsDropdownOpen(false);
+
+    if (abriendo) {
+      setNoLeidas(0);
+    }
   };
 
   // cerrar Sesion sin recargar la pagina
@@ -69,13 +95,50 @@ export default function Navbar() {
       <div className={styles.toolsSection} ref={dropdownRef}>
         
         {/* Botón de Notificaciones */}
-        <button className={styles.notificationBtn} aria-label="Notificaciones del sistema">
+        <button
+          className={styles.notificationBtn}
+          onClick={toggleNotifications}
+          style={{ position: 'relative' }}
+          aria-label="Notificaciones del sistema"
+        >
           <img 
             src="icons/notificacion.svg" 
             alt="Icono descriptivo de campana de notificaciones" 
             className={styles.toolIcon} 
           />
+          {noLeidas > 0 && (
+            <span className={styles.notificationBadge}>
+              {noLeidas}
+            </span>
+          )}
         </button>
+
+        {isNotificationsOpen && (
+          <div className={`${styles.profileDropdown} ${styles.notificationsDropdown}`}>
+            <h4 className={styles.notificationsTitle}>
+              Notificaciones
+            </h4>
+
+            {notificaciones.length === 0 ? (
+              <p className={styles.notificationEmpty}>
+                No tienes notificaciones nuevas.
+              </p>
+            ) : (
+              notificaciones.map((n, index) => (
+                <div key={n.id}>
+                  <div className={styles.notificationItem}>
+                    <p className={styles.notificationText}>{n.texto}</p>
+                    <span className={styles.notificationTime}>{n.tiempo}</span>
+                  </div>
+
+                  {index < notificaciones.length - 1 && (
+                    <hr className={styles.notificationDivider} />
+                  )}
+                </div>
+              ))
+            )}
+          </div>
+        )}
 
         {/* Botón de Perfil de Usuario */}
         <button 

@@ -3,6 +3,10 @@ import Login from './components/Login/Login';
 import Navbar from './components/Navbar/Navbar';
 import Sidebar from './components/Sidebar/Sidebar';
 import MainContent from './components/MainContent/MainContent';
+import Favoritos from './Pages/Favoritos';
+import MiLista from './Pages/MiLista';
+import Tendencias from './Pages/Tendencias';
+import Configuracion from './Pages/Configuracion';
 import './App.css';
 
 function App() {
@@ -11,6 +15,9 @@ function App() {
 
   //El !! convierte el resultado en un booleano, true si hay token, false si está vacío
   const [isAuthenticated, setIsAuthenticated] = useState(!!tokenGuardado);
+
+  // Estado que controla qué página se muestra según el botón del Sidebar
+  const [paginaActual, setPaginaActual] = useState('inicio');
 
   useEffect(() => {
     const manejarBotonAtras = () => {
@@ -44,10 +51,14 @@ function App() {
           <Navbar />
           
           <div className="main-wrapper">
-            <Sidebar />
+            <Sidebar paginaActual={paginaActual} setPaginaActual={setPaginaActual} />
             
             <main className="content-area">
-              <MainContent />
+              {paginaActual === 'inicio' && <MainContent />}
+              {paginaActual === 'tendencias' && <Tendencias />}
+              {paginaActual === 'favoritos' && <Favoritos />}
+              {paginaActual === 'mi-lista' && <MiLista />}
+              {paginaActual === 'configuracion' && <Configuracion />}
             </main>
           </div>
         </div>
