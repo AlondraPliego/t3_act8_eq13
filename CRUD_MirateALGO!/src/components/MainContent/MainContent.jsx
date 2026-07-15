@@ -1,4 +1,5 @@
 import FormAdd from '../forms/FormAdd';
+import FormEdit from '../forms/FormEdit';
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './MainContent.module.css';
 import { fetchGenres, fetchSeriesData } from '../../services/api';
