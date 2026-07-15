@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Login.module.css';
+import { loginUser } from '../../services/api';
 
 export default function Login({ onLoginSuccess }) {
   const [username, setUsername] = useState('');
@@ -21,29 +22,20 @@ export default function Login({ onLoginSuccess }) {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://dummyjson.com/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username: username, 
-          password: password,
-          expiresInMins: 30,
-        })
-      });
-
-      const data = await response.json();
-
-      // 2. Si la API devuelve error
-      if (!response.ok) {
-        throw new Error(data.message === 'Invalid credentials' ? 'Usuario o contraseña incorrectos.' : data.message);
-      }
+      const data = await loginUser(username, password);
 
       console.log('Login exitoso:', data);
       
+      sessionStorage.setItem('tempUser', username);
+      sessionStorage.setItem('tempPass', password);
+      
+      // se guardan los datos completos del usuario para que puedan pasar a la sig ventana
       if (rememberMe) {
         localStorage.setItem('token', data.token);
+        localStorage.setItem('userData', JSON.stringify(data)); // guarda todo
       } else {
         sessionStorage.setItem('token', data.token);
+        sessionStorage.setItem('userData', JSON.stringify(data));
       }
 
       if (onLoginSuccess) {

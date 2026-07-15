@@ -13,13 +13,12 @@ export default function Sidebar({
     setIsExpanded(!isExpanded);
   };
 
-  // Menú con sus nombres correspondientes e íconos de Iconify (set Material Design Icons)
   const menuItems = [
-    { id: 'inicio', text: 'Inicio', icon: 'mdi:home' },
-    { id: 'tendencias', text: 'Tendencias', icon: 'mdi:trending-up' },
-    { id: 'favoritos', text: 'Favoritos', icon: 'mdi:heart' },
-    { id: 'mi-lista', text: 'Mi lista', icon: 'mdi:playlist-play' },
-    { id: 'configuracion', text: 'Configuración', icon: 'mdi:cog' },
+    { id: 'inicio', text: 'Inicio', icon: 'icons/homelogo.svg' },
+    { id: 'tendencias', text: 'Tendencias', icon: 'icons/trendlogo.svg' },
+    { id: 'favoritos', text: 'Favoritos', icon: 'icons/favlogo.svg' },
+    { id: 'mi-lista', text: 'Mi lista', icon: 'icons/mylistlogo.svg' },
+    { id: 'configuracion', text: 'Configuración', icon: 'icons/settingslogo.svg' },
   ];
 
   return (
@@ -43,13 +42,13 @@ export default function Sidebar({
   onClick={() => setPaginaActual(item.id)}
 >
             <div className={styles.itemContent}>
-              <Icon
-                icon={item.icon}
+              <img
+                src={item.icon}
+                alt={`Icono descriptivo para ${item.text}`}
                 className={styles.menuIcon}
                 width={24}
                 height={24}
               />
-              {/* El texto siempre está en el HTML, pero el CSS controla su aparición */}
               <span className={styles.menuText}>{item.text}</span>
             </div>
           </button>

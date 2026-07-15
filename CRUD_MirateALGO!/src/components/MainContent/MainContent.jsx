@@ -1,20 +1,14 @@
 import FormAdd from '../forms/FormAdd';
 import React, { useState, useEffect, useRef } from 'react';
-import FormEdit from '../forms/FormEdit';
 import styles from './MainContent.module.css';
-const TMDB_API_KEY = 'ac0bd5d0ec2bb3cb455738106df4c6aa'; 
-const BASE_URL = 'https://api.themoviedb.org/3';
-const GENRE_MAP = {
-  10759: 'Acción & Aventura', 16: 'Animación', 35: 'Comedia', 80: 'Crimen',
-  99: 'Documental', 18: 'Drama', 10751: 'Familia', 10762: 'Kids',
-  9648: 'Misterio', 10763: 'News', 10764: 'Reality', 10765: 'Sci-Fi & Fantasía',
-  10766: 'Soap', 10767: 'Talk', 10768: 'War & Politics', 37: 'Western'
-};
-const GENRE_IDS = {
-  'Drama': 18, 'Comedia': 35, 'Terror': 9648, 'Ciencia-Ficción': 10765
-};
+import { fetchGenres, fetchSeriesData } from '../../services/api';
 
 export default function MainContent() {
+  const mainContainerRef = useRef(null);
+  const tableWrapperRef = useRef(null);
+  const dropdownRefs = useRef({});
+
+  const [hasToken, setHasToken] = useState(!!(localStorage.getItem('token') || sessionStorage.getItem('token')));
   const [seriesData, setSeriesData] = useState([]);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isAddOpen, setIsAddOpen] = useState(false);
@@ -33,110 +27,60 @@ export default function MainContent() {
     estado: 'Todos'
   });
 
- useEffect(() => {
-  // Verificamos si SweetAlert2 ya está cargado para no duplicarlo
-  if (!window.Swal) {
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
-    script.async = true;
-    document.body.appendChild(script);
-  }
-}, []);
-
-  const dropdownRefs = useRef({});
   useEffect(() => {
-  const genresUrl = `${BASE_URL}/genre/tv/list?api_key=${TMDB_API_KEY}&language=es-ES`;
-  
-  fetch(genresUrl)
-    .then(res => res.ok ? res.json() : null)
-    .then(data => {
-      if (data && data.genres) {
-        setGenresList(data.genres); // Guarda [{id: 80, name: 'Crimen'}, {id: 10765, name: 'Sci-Fi & Fantasía'}, ...]
+    setTimeout(() => {
+      const opcionesScroll = { top: 0, left: 0, behavior: 'smooth' };
+
+      if (mainContainerRef.current) {
+        mainContainerRef.current.scrollTo(opcionesScroll);
       }
-    })
-    .catch(err => console.error("Error al cargar géneros de TMDB:", err));
-}, []);
-
-useEffect(() => {
-  // Verificamos si SweetAlert2 ya está cargado para no duplicarlo
-  if (!window.Swal) {
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
-    script.async = true;
-    document.body.appendChild(script);
-  }
-}, []);
-  useEffect(() => {
-    let url = '';
-    if (activeSearch.trim() !== '') {
-      url = `${BASE_URL}/search/tv?api_key=${TMDB_API_KEY}&language=es-ES&query=${encodeURIComponent(activeSearch)}&page=${currentPage}`;
-    } else {
-      url = `${BASE_URL}/discover/tv?api_key=${TMDB_API_KEY}&language=es-ES&sort_by=popularity.desc&page=${currentPage}`;
       
-      if (filters.genero !== 'Todos') {
-  const selectedGenreObj = genresList.find(g => g.name === filters.genero);
-  if (selectedGenreObj) {
-    url += `&with_genres=${selectedGenreObj.id}`;
-  }
-}
-      if (filters.año !== 'Todos') {
-        url += `&first_air_date_year=${filters.año}`;
+      if (tableWrapperRef.current) {
+        tableWrapperRef.current.scrollTo(opcionesScroll);
       }
+      
+      const appContentArea = document.querySelector('.content-area');
+      if (appContentArea) {
+        appContentArea.scrollTo(opcionesScroll);
+      }
+      
+      window.scrollTo(opcionesScroll);
+    }, 50);
+  }, [currentPage]);
+
+  useEffect(() => {
+    if (!window.Swal) {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+      script.async = true;
+      document.body.appendChild(script);
     }
-    fetch(url)
-      .then(res => {
-        if (!res.ok) throw new Error('Error al consultar la lista general de TMDB');
-        return res.json();
-      })
-      .then(async (data) => {
-        if (!data.results) return;
-        const detailPromises = data.results.map(item => 
-          fetch(`${BASE_URL}/tv/${item.id}?api_key=${TMDB_API_KEY}&language=es-ES`)
-            .then(res => res.ok ? res.json() : null)
-            .catch(() => null) // Previene que un fallo en una serie tire abajo toda la tabla
-        );
+  }, []);
 
-        const detailedResults = await Promise.all(detailPromises);
+  useEffect(() => {
+    fetchGenres()
+      .then(setGenresList)
+      .catch(err => console.error("Error al cargar géneros de TMDB:", err));
+  }, []);
 
-        const statusMap = {
-          'Returning Series': 'En emisión',
-          'Planned': 'Planeada',
-          'In Production': 'En producción',
-          'Ended': 'Finalizada',
-          'Canceled': 'Cancelada',
-          'Pilot': 'Piloto'
-        };
-        const adaptedData = data.results.map((item, index) => {
-          const details = detailedResults[index];
-          
-          return {
-            id: item.id,
-            titulo: item.name,
-            año: item.first_air_date ? new Date(item.first_air_date).getFullYear() : 'N/A',
-            calificacion: item.vote_average ? item.vote_average.toFixed(1) : 'N/A',
-            estado: details ? (statusMap[details.status] || details.status) : 'N/A',
-            genero: item.genre_ids && item.genre_ids.length > 0 ? GENRE_MAP[item.genre_ids[0]] || 'Otros' : 'N/A',
-            temporadas: details ? details.number_of_seasons : 'N/A',
-            episodios: details ? details.number_of_episodes : 'N/A',
-            canal: details && details.networks && details.networks.length > 0 
-              ? details.networks[0].name 
-              : (item.origin_country && item.origin_country.length > 0 ? item.origin_country[0] : 'N/A')
-          };
-        });
+  useEffect(() => {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    if (!token) return;
 
-        let finalData = adaptedData;
-        if (filters.estado !== 'Todos') {
-          finalData = adaptedData.filter(serie => serie.estado.toLowerCase() === filters.estado.toLowerCase());
-        }
-
-        setSeriesData(finalData);
-        const safeTotalPages = Math.min(data.total_pages, 500);
-        setTotalPages(safeTotalPages);
-        setTotalRecords(Math.min(data.total_results, safeTotalPages * rowsPerPage));
+    fetchSeriesData({
+      page: currentPage,
+      search: activeSearch,
+      filters,
+      genresList
+    })
+      .then(({ series, totalPages, totalRecords }) => {
+        setSeriesData(series);
+        setTotalPages(totalPages);
+        setTotalRecords(totalRecords);
       })
       .catch(err => console.error("Error cargando los datos estructurados de TMDB:", err));
 
-  }, [currentPage, activeSearch, filters]);
+  }, [currentPage, activeSearch, filters, genresList]);
 
   const toggleDropdown = (menu) => {
     setActiveDropdown(activeDropdown === menu ? null : menu);
@@ -149,6 +93,7 @@ useEffect(() => {
     setCurrentPage(1); 
     setActiveDropdown(null);
   };
+
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       setActiveSearch(searchInput);
@@ -211,9 +156,35 @@ useEffect(() => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [activeDropdown]);
 
+  useEffect(() => {
+    const handleSessionChange = () => {
+      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+      setHasToken(!!token);
+    };
+    window.addEventListener('session-changed', handleSessionChange);
+    return () => window.removeEventListener('session-changed', handleSessionChange);
+  }, []);
+
+  if (!hasToken) {
+    return (
+      <div className={styles.unauthorizedContainer}>
+        <div className={styles.unauthorizedCard}>
+          <h2>Acceso Restringido</h2>
+          <p>Es necesario iniciar sesión para visualizar el catálogo de series.</p>
+          <button 
+            className={styles.unauthorizedBtn} 
+            onClick={() => window.location.reload()}
+          >
+            Ir al inicio de sesión
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className={styles.mainContainer}>
-      {/* BARRA BUSCADORA */}
+    <div className={styles.mainContainer} ref={mainContainerRef}>
+      
       <div className={styles.topControls}>
         <div className={styles.searchBox}>
           <img src="icons/searchIcon.svg" alt="Buscar" className={styles.searchIcon} />
@@ -227,36 +198,27 @@ useEffect(() => {
           />
         </div>
 
-        {/* FILTROS*/}
         <div className={styles.filtersGroup}>
           <button className={styles.filterBtnIcon}>
             <img src="icons/filterIcon.svg" alt="Icono Filtro" className={styles.smallIcon} />
           </button>
 
-          {/* GENERO */}
-        <div className={styles.dropdownContainer} ref={el => dropdownRefs.current['genero'] = el}>
-        <button className={styles.filterBtn} onClick={() => toggleDropdown('genero')}>
-            Género: {filters.genero}
-        </button>
-        {activeDropdown === 'genero' && (
-            <ul className={styles.dropdownMenu}>
-            {/* Opción por defecto para limpiar el filtro */}
-            <li onClick={() => handleSelectFilter('genero', 'Todos')}>Todos</li>
-            
-            {/* Mapeamos dinámicamente los géneros reales de TMDB */}
-            {genresList.map((genre) => (
-                <li 
-                key={genre.id} 
-                onClick={() => handleSelectFilter('genero', genre.name)}
-                >
-                {genre.name}
-                </li>
-            ))}
-            </ul>
-        )}
-        </div>
+          <div className={styles.dropdownContainer} ref={el => dropdownRefs.current['genero'] = el}>
+            <button className={styles.filterBtn} onClick={() => toggleDropdown('genero')}>
+                Género: {filters.genero}
+            </button>
+            {activeDropdown === 'genero' && (
+                <ul className={styles.dropdownMenu}>
+                <li onClick={() => handleSelectFilter('genero', 'Todos')}>Todos</li>
+                {genresList.map((genre) => (
+                    <li key={genre.id} onClick={() => handleSelectFilter('genero', genre.name)}>
+                    {genre.name}
+                    </li>
+                ))}
+                </ul>
+            )}
+          </div>
 
-          {/* AÑOS*/}
           <div className={styles.dropdownContainer} ref={el => dropdownRefs.current['año'] = el}>
             <button className={styles.filterBtn} onClick={() => toggleDropdown('año')}>
               Año: {filters.año}
@@ -273,7 +235,6 @@ useEffect(() => {
             )}
           </div>
 
-          {/* ESTADO */}
           <div className={styles.dropdownContainer} ref={el => dropdownRefs.current['estado'] = el}>
             <button className={styles.filterBtn} onClick={() => toggleDropdown('estado')}>
               Estado: {filters.estado}
@@ -289,16 +250,13 @@ useEffect(() => {
           </div>
         </div>
 
-        {/* BOTON PARA AÑADIR*/}
         <div className={styles.globalActions}>
           <button className={styles.actionBtnTop} onClick={() => setIsAddOpen(true)}>
             <img src="icons/addIcon.png" alt="Añadir nuevo" />
           </button>
         </div>
       </div>
-
-      {/* 2. TABLA*/}
-      <div className={styles.tableWrapper}>
+      <div className={styles.tableWrapper} ref={tableWrapperRef}>
         <table className={styles.customTable}>
           <thead>
             <tr>
@@ -353,10 +311,7 @@ useEffect(() => {
         </table>
       </div>
 
-      {/* 3. PAGINACIÓN INFERIOR */}
       <div className={styles.paginationFooter}>
-        
-        {/* Selector Bloqueado a 20 debido a restricciones de la API de TMDB */}
         <div className={styles.paginationInfo}>
           <span>Filas por página</span>
           <select value={rowsPerPage} disabled className={styles.rowsSelect}>
@@ -365,7 +320,6 @@ useEffect(() => {
           <span>Mostrando {indexOfFirstRecord}-{indexOfLastRecord} de {totalRecords}</span>
         </div>
 
-        {/* Controles numéricos y direccionales */}
         <div className={styles.paginationControls}>
           <button 
             className={styles.arrowBtn} 
@@ -393,23 +347,22 @@ useEffect(() => {
             <img src="icons/derecha.svg" alt="Siguiente" />
           </button>
         </div>
-
       </div>
-        <FormEdit 
-          isOpen={isEditOpen}
-          onClose={() => setIsEditOpen(false)}
-          elementoSeleccionado={serieAEditar}
-          onEditElement={(datosActualizados) => {
-            // Actualizamos el estado temporalmente
-            setSeriesData((seriesActuales) => 
-              seriesActuales.map((serie) => 
-                serie.id === datosActualizados.id ? datosActualizados : serie
-              )
-            );
-          }}
-        />
+      
+      <FormEdit 
+        isOpen={isEditOpen}
+        onClose={() => setIsEditOpen(false)}
+        elementoSeleccionado={serieAEditar}
+        onEditElement={(datosActualizados) => {
+          setSeriesData((seriesActuales) => 
+            seriesActuales.map((serie) => 
+              serie.id === datosActualizados.id ? datosActualizados : serie
+            )
+          );
+        }}
+      />
 
-        <FormAdd 
+      <FormAdd 
         isOpen={isAddOpen}
         onClose={() => setIsAddOpen(false)}
         onAddElement={(nuevaSerie) => {

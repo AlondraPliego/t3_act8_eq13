@@ -1,6 +1,5 @@
-/* Contenedor global de la sección central */
 .mainContainer {
-    width: 100%; /* <-- Asegúrate de que tenga esto */
+    width: 100%; 
   min-height: 100%;
   padding: 30px;
   background-color: #2F2D2E;
@@ -12,9 +11,6 @@
   flex-direction: column;
 }
 
-/* ==========================================
-   1. CONTROLES SUPERIORES (Búsqueda y Filtros)
-   ========================================== */
 .topControls {
   display: flex;
   justify-content: space-between;
@@ -137,40 +133,35 @@
   transform: scale(1.1);
 }
 
-/* ==========================================
-   2. TABLA
-   ========================================== */
 .tableWrapper {
   flex: 1;
-  overflow-x: auto; /* Scroll si la pantalla es muy pequeña */
+  overflow-x: auto; 
 }
 .customTable {
   width: 100%;
   border-collapse: collapse;
-  text-align: center; /* Alineado al centro como en el mockup */
+  text-align: center; 
 }
 .customTable th {
   color: #b3b3b3;
   font-weight: normal;
   padding-bottom: 15px;
-  border-bottom: 2px solid #99C24D; /* La línea verde del mockup */
+  border-bottom: 2px solid #99C24D; 
   font-family: 'Georgia', serif;
 }
 .customTable td {
   padding: 16px 10px;
-  border-bottom: 1px solid #99C24D; /* Línea separadora sutil */
+  border-bottom: 1px solid #99C24D; 
   color: #e0e0e0;
 }
 
-/* EFECTO HOVER DE LAS FILAS SOLICITADO */
 .customTable tbody tr {
   transition: background-color 0.2s ease;
 }
 .customTable tbody tr:hover {
-  background-color: #1e1d1e /* Se ilumina sutilmente de azul */
+  background-color: #1e1d1e 
 }
 
-/* Acciones particulares por fila */
 .rowActionsContainer {
   display: flex;
   justify-content: center;
@@ -189,9 +180,6 @@
   transform: scale(1.2);
 }
 
-/* ==========================================
-   3. PAGINACIÓN INFERIOR
-   ========================================== */
 .paginationFooter {
   display: flex;
   justify-content: space-between;
@@ -217,7 +205,6 @@
   cursor: pointer;
 }
 
-/* Botones numéricos de página */
 .paginationControls {
   display: flex;
   align-items: center;
@@ -249,11 +236,102 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Estado activo de la página (El verde del mockup image_1c6a9a.png) */
 .activePage {
   background-color: #99C24D;
   color: #FFFFFF;
 }
 .activePage:hover {
   background-color: #99C24D; /* Mantiene el verde */
+}
+
+.unauthorizedContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Tarjeta de alerta */
+.unauthorizedCard {
+  background-color: #3F3D3E;
+  padding: 40px;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  max-width: 450px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.unauthorizedCard h2 {
+  color: #FFFFFF;
+  font-family: 'Georgia', serif;
+  font-weight: 400;
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.unauthorizedCard p {
+  color: #a09e9f;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 30px;
+}
+
+.unauthorizedBtn {
+  background-color: #048BA8;
+  color: #FFFFFF;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.unauthorizedBtn:hover {
+  background-color: #99C24D;
+}
+
+.unauthorizedBtn:active {
+  transform: scale(0.98);
+}
+
+/*Scroll de la tabla */
+.tableWrapper {
+  flex: 1;
+  overflow-x: auto; 
+  overflow-y: auto;
+  
+  scrollbar-width: thin;
+  scrollbar-color: #4A4849 #2F2D2E;
+}
+
+.tableWrapper::-webkit-scrollbar {
+  width: 10px; 
+  height: 10px;
+}
+
+.tableWrapper::-webkit-scrollbar-track {
+  background: #2F2D2E;
+  border-radius: 8px;
+}
+
+.tableWrapper::-webkit-scrollbar-thumb {
+  background-color: #4A4849;
+  border-radius: 8px;
+  border: 2px solid #2F2D2E;
+}
+
+
+.tableWrapper::-webkit-scrollbar-thumb:hover {
+  background-color: #048BA8; 
+}
+
+.customTable {
+  width: 100%;
 }
