@@ -182,7 +182,7 @@
   line-height: 1;
 }
 
-/* Dropdown de notificaciones: un poco más ancho y alineado a texto */
+/* Dropdown de notificaciones */
 .notificationsDropdown {
   align-items: stretch;
   width: 320px;
