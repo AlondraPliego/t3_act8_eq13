@@ -93,11 +93,9 @@
   padding-left: 12px;
   gap: 16px;
 }
-
-/* ====== EFECTO HOVER SOLICITADO (Caja azul sólida) ====== */
 .navItem:hover {
-  background-color: #048BA8; /* Fondo azul completo */
-  color: #FFFFFF; /* Texto e icono se mantienen blancos */
+  background-color: #048BA8; 
+  color: #FFFFFF; 
 }
 
 .menuIcon {

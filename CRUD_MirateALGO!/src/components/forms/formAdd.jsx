@@ -26,7 +26,7 @@ export default function FormAdd({ isOpen, onClose, onAddElement }) {
   if (!isOpen) return null;
 
   const handleChange = (e) => {
-    // Se utiliza 'id' para evitar el autocompletado basado en el atributo 'name'
+    
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
   };

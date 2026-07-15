@@ -9,7 +9,7 @@ export default function Sidebar() {
     setIsExpanded(!isExpanded);
   };
 
-  // Menú con sus nombres correspondientes y rutas de iconos descriptivos
+
   const menuItems = [
     { id: 'inicio', text: 'Inicio', icon: 'icons/homelogo.svg' },
     { id: 'tendencias', text: 'Tendencias', icon: 'icons/trendlogo.svg' },
@@ -42,7 +42,6 @@ export default function Sidebar() {
                 alt={`Icono descriptivo para ${item.text}`} 
                 className={styles.menuIcon} 
               />
-              {/* El texto siempre está en el HTML, pero el CSS controla su aparición */}
               <span className={styles.menuText}>{item.text}</span>
             </div>
           </button>

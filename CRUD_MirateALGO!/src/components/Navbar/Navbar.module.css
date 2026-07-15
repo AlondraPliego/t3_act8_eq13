@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #2F2D2E; /* Color oscuro del fondo de la barra */
+  background-color: #2F2D2E; 
   padding: 12px 24px;
   height: 64px;
   color: #ffffff;
@@ -13,7 +13,6 @@
   z-index: 100;
 }
 
-/* Bloque Izquierdo: Marca y Logotipo */
 .brandSection {
   display: flex;
   align-items: center;
@@ -36,7 +35,7 @@
   color: #ffffff;
 }
 
-/* Bloque Derecho: Herramientas de navegación */
+/* Bloque Derecho: Navbar */
 .toolsSection {
   display: flex;
   align-items: center;
@@ -68,7 +67,7 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Área del botón de Usuario con iluminación azul */
+/* Área del botón de Usuario */
 .userMenuTrigger {
   background: none;
   border: none;
@@ -84,22 +83,19 @@
   transition: color 0.2s ease, background-color 0.2s ease;
 }
 
-/* Iluminación azul solicitada al pasar el mouse encima de usuario */
 .userMenuTrigger:hover {
   color: #048BA8;
 }
 
 .userMenuTrigger:hover .toolIcon {
-  /* Filtro opcional por si usas un PNG blanco para que cambie al azul #048BA8 en hover */
   filter: drop-shadow(0px 0px 1px #048BA8); 
 }
 
-/* Caja de menú desplegable del perfil en la esquina superior derecha */
 .profileDropdown {
   position: absolute;
-  top: 50px; /* Ajustado perfectamente debajo del navbar */
+  top: 50px; 
   right: 0;
-  background-color: #4A4849; /* Gris más suave solicitado */
+  background-color: #4A4849; 
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   width: 260px;
@@ -112,12 +108,12 @@
   box-sizing: border-box;
 }
 
-/* Contenedor e imagen de perfil centrada */
+
 .avatarContainer {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  border: 3px solid #048BA8; /* Borde con el tono azul */
+  border: 3px solid #048BA8; 
   overflow: hidden;
   margin-bottom: 16px;
   display: flex;
@@ -132,7 +128,6 @@
   object-fit: cover;
 }
 
-/* Texto de información */
 .userNameDisplay {
   color: #ffffff;
   font-size: 1.1rem;
@@ -149,7 +144,7 @@
   word-break: break-all;
 }
 
-/* Botón de cierre de sesión con hover en verde */
+/* Botón de cierre de sesión*/
 .logoutActionBtn {
   width: 100%;
   padding: 10px;
