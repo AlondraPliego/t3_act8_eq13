@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 function Configuracion() {
 
@@ -18,11 +19,45 @@ function Configuracion() {
 
     }, []);
 
+    const handleEliminarCuenta = () => {
+        Swal.fire({
+            title: "¿Eliminar tu cuenta?",
+            text: `Se cerrará tu sesión y se borrarán tus datos locales, ${usuario.nombre || "usuario"}. Esta acción no se puede deshacer.`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#4A4849",
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar",
+            background: "#2F2D2E",
+            color: "#FFFFFF"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Limpiamos todo rastro de la sesión y del usuario
+                localStorage.removeItem("token");
+                localStorage.removeItem("usuario");
+                sessionStorage.removeItem("token");
+
+                Swal.fire({
+                    title: "Cuenta eliminada",
+                    text: "Tu cuenta y tu sesión se cerraron correctamente.",
+                    icon: "success",
+                    confirmButtonColor: "#048BA8",
+                    background: "#2F2D2E",
+                    color: "#FFFFFF"
+                }).then(() => {
+                    // Al recargar, App.jsx detecta que ya no hay token y muestra el Login
+                    window.location.reload();
+                });
+            }
+        });
+    };
+
     return (
 
         <div style={{ padding: "30px" }}>
 
-            <h1>⚙️ Configuración</h1>
+            <h1> Configuración</h1>
 
             <br />
 
@@ -43,6 +78,7 @@ function Configuracion() {
             <p><strong>Contraseña:</strong> ********</p>
 
             <button
+                onClick={handleEliminarCuenta}
                 style={{
                     marginTop: "20px",
                     background: "red",

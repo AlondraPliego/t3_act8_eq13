@@ -167,6 +167,68 @@
   background-color: #99C24D; /* Verde para el estado hover */
 }
 
+/* Punto rojo con el número de notificaciones no leídas */
+.notificationBadge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #d33;
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+  box-sizing: border-box;
+  line-height: 1;
+}
+
+/* Dropdown de notificaciones: un poco más ancho y alineado a texto */
+.notificationsDropdown {
+  align-items: stretch;
+  width: 320px;
+  text-align: left;
+  padding: 20px;
+}
+
+.notificationsTitle {
+  margin: 0 0 12px 0;
+  color: #ffffff;
+}
+
+.notificationItem {
+  padding: 8px 0;
+}
+
+.notificationText {
+  margin: 0 0 4px 0;
+  color: #ffffff;
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+.notificationTime {
+  color: #b3b1b2;
+  font-size: 0.75rem;
+}
+
+.notificationDivider {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 4px 0;
+}
+
+.notificationEmpty {
+  color: #b3b1b2;
+  font-size: 0.85rem;
+  text-align: center;
+  margin: 0;
+}
+
 /* Adaptabilidad de pantalla */
 @media (max-width: 480px) {
   .userText {
@@ -180,4 +242,4 @@
     left: 12px;
     width: auto;
   }
-}
+}´ñ

@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import { Icon } from '@iconify/react';
 import styles from './Sidebar.module.css';
 
-export default function Sidebar() {
+export default function Sidebar({
+  paginaActual,
+  setPaginaActual
+}) {
   // Estado para controlar si el menú está expandido o colapsado
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -9,14 +13,13 @@ export default function Sidebar() {
     setIsExpanded(!isExpanded);
   };
 
-  // Menú con sus nombres correspondientes y rutas de iconos descriptivos
+  // Menú con sus nombres correspondientes e íconos de Iconify (set Material Design Icons)
   const menuItems = [
-    { id: 'inicio', text: 'Inicio', icon: 'icons/iconoHome.png' },
-    { id: 'tendencias', text: 'Tendencias', icon: 'icons/iconoTrends.png' },
-    { id: 'favoritos', text: 'Favoritos', icon: 'icons/iconoFavorites.png' },
-    { id: 'mi-lista', text: 'Mi lista', icon: 'icons/iconoMyList.png' },
-    { id: 'configuracion', text: 'Configuración', icon: 'icons/iconoSettings.png' },
-    { id: 'cerrar-sesion', text: 'Cerrar Sesión', icon: 'icons/iconoLogout.png' },
+    { id: 'inicio', text: 'Inicio', icon: 'mdi:home' },
+    { id: 'tendencias', text: 'Tendencias', icon: 'mdi:trending-up' },
+    { id: 'favoritos', text: 'Favoritos', icon: 'mdi:heart' },
+    { id: 'mi-lista', text: 'Mi lista', icon: 'mdi:playlist-play' },
+    { id: 'configuracion', text: 'Configuración', icon: 'mdi:cog' },
   ];
 
   return (
@@ -25,23 +28,26 @@ export default function Sidebar() {
       {/* Botón de Hamburguesa */}
       <div className={styles.hamburgerSection}>
         <button className={styles.hamburgerBtn} onClick={toggleSidebar} aria-label="Abrir menú">
-          <img 
-            src="icons/iconoMenu.png" 
-            alt="Icono descriptivo menu hamburguesa" 
-            className={styles.hamburgerIcon} 
-          />
+          <Icon icon="mdi:menu" className={styles.hamburgerIcon} width={24} height={24} />
         </button>
       </div>
 
       {/* Lista de Navegación */}
       <nav className={styles.navMenu}>
         {menuItems.map((item) => (
-          <button key={item.id} className={styles.navItem} Skinner-text={item.text}>
+          <button
+  key={item.id}
+  className={`${styles.navItem} ${
+    paginaActual === item.id ? styles.active : ""
+  }`}
+  onClick={() => setPaginaActual(item.id)}
+>
             <div className={styles.itemContent}>
-              <img 
-                src={item.icon} 
-                alt={`Icono descriptivo para ${item.text}`} 
-                className={styles.menuIcon} 
+              <Icon
+                icon={item.icon}
+                className={styles.menuIcon}
+                width={24}
+                height={24}
               />
               {/* El texto siempre está en el HTML, pero el CSS controla su aparición */}
               <span className={styles.menuText}>{item.text}</span>
